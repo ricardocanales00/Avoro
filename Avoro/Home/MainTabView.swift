@@ -17,8 +17,7 @@ struct MainTabView: View {
             .tag(0)
 
             NavigationStack {
-                Text("Listado de rutinas")
-                    .navigationTitle("Rutinas")
+                RutinaListView()
             }
             .tabItem {
                 Label("Rutinas", systemImage: "dumbbell.fill")

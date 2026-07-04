@@ -137,4 +137,171 @@ struct RutinaService {
 
         return respuesta.count ?? 0
     }
+
+    // MARK: - CRUD de Rutina (Épica 2)
+
+    func fetchRutinas(usuarioId: UUID) async throws -> [Rutina] {
+        try await client
+            .from("rutina")
+            .select()
+            .eq("usuario_id", value: usuarioId)
+            .order("fecha_inicio", ascending: false)
+            .execute()
+            .value
+    }
+
+    @discardableResult
+    func crearRutina(_ nueva: RutinaInsert) async throws -> Rutina {
+        try await client
+            .from("rutina")
+            .insert(nueva)
+            .select()
+            .single()
+            .execute()
+            .value
+    }
+
+    func actualizarRutina(id: UUID, cambios: RutinaUpdate) async throws {
+        try await client
+            .from("rutina")
+            .update(cambios)
+            .eq("id", value: id)
+            .execute()
+    }
+
+    func eliminarRutina(id: UUID) async throws {
+        try await client
+            .from("rutina")
+            .delete()
+            .eq("id", value: id)
+            .execute()
+    }
+
+    // MARK: - CRUD de días de rutina (Épica 3)
+
+    /// Trae los días de una rutina con sus ejercicios anidados, para el
+    /// editor de estructura. A diferencia de `fetchRutinaActiva`, aquí no
+    /// filtramos por `activa` porque el usuario puede editar cualquiera
+    /// de sus rutinas, no solo la activa.
+    func fetchDiasConEjercicios(rutinaId: UUID) async throws -> [DiaConEjercicios] {
+        let dias: [DiaConEjercicios] = try await client
+            .from("dia_rutina")
+            .select("""
+                id,
+                nombre_dia,
+                orden,
+                ejercicio_dia (
+                    id,
+                    series_objetivo,
+                    repeticiones_objetivo,
+                    orden,
+                    ejercicio (
+                        id,
+                        nombre,
+                        imagen_url,
+                        grupo_muscular
+                    )
+                )
+                """)
+            .eq("rutina_id", value: rutinaId)
+            .order("orden")
+            .execute()
+            .value
+
+        return dias
+    }
+
+    @discardableResult
+    func crearDia(_ nuevo: DiaRutinaInsert) async throws -> DiaRutina {
+        try await client
+            .from("dia_rutina")
+            .insert(nuevo)
+            .select()
+            .single()
+            .execute()
+            .value
+    }
+
+    func renombrarDia(id: UUID, nombreDia: String) async throws {
+        try await client
+            .from("dia_rutina")
+            .update(DiaRutinaNombreUpdate(nombreDia: nombreDia))
+            .eq("id", value: id)
+            .execute()
+    }
+
+    func actualizarOrdenDia(id: UUID, orden: Int) async throws {
+        try await client
+            .from("dia_rutina")
+            .update(OrdenUpdate(orden: orden))
+            .eq("id", value: id)
+            .execute()
+    }
+
+    func eliminarDia(id: UUID) async throws {
+        try await client
+            .from("dia_rutina")
+            .delete()
+            .eq("id", value: id)
+            .execute()
+    }
+
+    // MARK: - CRUD de ejercicios dentro de un día (Épica 3)
+
+    @discardableResult
+    func agregarEjercicioADia(_ nuevo: EjercicioDiaInsert) async throws -> EjercicioDiaConEjercicio {
+        try await client
+            .from("ejercicio_dia")
+            .insert(nuevo)
+            .select("""
+                id,
+                series_objetivo,
+                repeticiones_objetivo,
+                orden,
+                ejercicio (
+                    id,
+                    nombre,
+                    imagen_url,
+                    grupo_muscular
+                )
+                """)
+            .single()
+            .execute()
+            .value
+    }
+
+    func actualizarSeriesReps(id: UUID, series: Int, repeticiones: Int) async throws {
+        try await client
+            .from("ejercicio_dia")
+            .update(EjercicioDiaSeriesUpdate(seriesObjetivo: series, repeticionesObjetivo: repeticiones))
+            .eq("id", value: id)
+            .execute()
+    }
+
+    func actualizarOrdenEjercicioDia(id: UUID, orden: Int) async throws {
+        try await client
+            .from("ejercicio_dia")
+            .update(OrdenUpdate(orden: orden))
+            .eq("id", value: id)
+            .execute()
+    }
+
+    func eliminarEjercicioDia(id: UUID) async throws {
+        try await client
+            .from("ejercicio_dia")
+            .delete()
+            .eq("id", value: id)
+            .execute()
+    }
+
+    // MARK: - Catálogo de ejercicios (Épica 7, para el picker)
+
+    func fetchCatalogoEjercicios() async throws -> [EjercicioResumen] {
+        try await client
+            .from("ejercicio")
+            .select("id, nombre, imagen_url, grupo_muscular")
+            .order("grupo_muscular")
+            .execute()
+            .value
+    }
 }
