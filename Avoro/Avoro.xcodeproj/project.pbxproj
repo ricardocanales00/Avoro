@@ -1,0 +1,445 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DCFAFAB02FF8E9B400CBCA4F /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = DCFAFAAF2FF8E9B400CBCA4F /* Supabase */; };
+		DCFAFAB82FF8EC1300CBCA4F /* Equipo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFAB62FF8EAC100CBCA4F /* Equipo.swift */; };
+		DCFAFAB92FF8EC5000CBCA4F /* SupabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFAB32FF8EA4600CBCA4F /* SupabaseService.swift */; };
+		DCFAFAC32FF8F08D00CBCA4F /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFABC2FF8F08D00CBCA4F /* AuthViewModel.swift */; };
+		DCFAFAC42FF8F08D00CBCA4F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFABF2FF8F08D00CBCA4F /* LoginView.swift */; };
+		DCFAFAC52FF8F08D00CBCA4F /* Color+Progresa.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFABD2FF8F08D00CBCA4F /* Color+Progresa.swift */; };
+		DCFAFAC62FF8F08D00CBCA4F /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFAC12FF8F08D00CBCA4F /* RegisterView.swift */; };
+		DCFAFAC82FF8F08D00CBCA4F /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFABE2FF8F08D00CBCA4F /* ForgotPasswordView.swift */; };
+		DCFAFAC92FF8F08D00CBCA4F /* Perfil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFAC02FF8F08D00CBCA4F /* Perfil.swift */; };
+		DCFAFACA2FF8F08D00CBCA4F /* AuthContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFABB2FF8F08D00CBCA4F /* AuthContainerView.swift */; };
+		DCFAFAD02FF8F6DB00CBCA4F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFACD2FF8F6DB00CBCA4F /* HomeView.swift */; };
+		DCFAFAD12FF8F6DB00CBCA4F /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFACE2FF8F6DB00CBCA4F /* HomeViewModel.swift */; };
+		DCFAFAD22FF8F6DB00CBCA4F /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFACF2FF8F6DB00CBCA4F /* MainTabView.swift */; };
+		DCFAFAD62FF8F72600CBCA4F /* RutinaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFAD52FF8F72600CBCA4F /* RutinaService.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		DCFAFAA02FF8E62E00CBCA4F /* Avoro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Avoro.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCFAFAB32FF8EA4600CBCA4F /* SupabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseService.swift; sourceTree = "<group>"; };
+		DCFAFAB62FF8EAC100CBCA4F /* Equipo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipo.swift; sourceTree = "<group>"; };
+		DCFAFABB2FF8F08D00CBCA4F /* AuthContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthContainerView.swift; sourceTree = "<group>"; };
+		DCFAFABC2FF8F08D00CBCA4F /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		DCFAFABD2FF8F08D00CBCA4F /* Color+Progresa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Progresa.swift"; sourceTree = "<group>"; };
+		DCFAFABE2FF8F08D00CBCA4F /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		DCFAFABF2FF8F08D00CBCA4F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		DCFAFAC02FF8F08D00CBCA4F /* Perfil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Perfil.swift; sourceTree = "<group>"; };
+		DCFAFAC12FF8F08D00CBCA4F /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		DCFAFACD2FF8F6DB00CBCA4F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		DCFAFACE2FF8F6DB00CBCA4F /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		DCFAFACF2FF8F6DB00CBCA4F /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		DCFAFAD52FF8F72600CBCA4F /* RutinaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RutinaService.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		DCFAFAA22FF8E62E00CBCA4F /* Avoro */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Avoro;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DCFAFA9D2FF8E62E00CBCA4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCFAFAB02FF8E9B400CBCA4F /* Supabase in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DCFAFA972FF8E62E00CBCA4F = {
+			isa = PBXGroup;
+			children = (
+				DCFAFACC2FF8F6B700CBCA4F /* Home */,
+				DCFAFABA2FF8F03B00CBCA4F /* Auth */,
+				DCFAFAB42FF8EAA100CBCA4F /* Models */,
+				DCFAFAB12FF8EA1000CBCA4F /* Services */,
+				DCFAFAA22FF8E62E00CBCA4F /* Avoro */,
+				DCFAFAA12FF8E62E00CBCA4F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DCFAFAA12FF8E62E00CBCA4F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DCFAFAA02FF8E62E00CBCA4F /* Avoro.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DCFAFAB12FF8EA1000CBCA4F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				DCFAFAD52FF8F72600CBCA4F /* RutinaService.swift */,
+				DCFAFAB32FF8EA4600CBCA4F /* SupabaseService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		DCFAFAB42FF8EAA100CBCA4F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DCFAFAB62FF8EAC100CBCA4F /* Equipo.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DCFAFABA2FF8F03B00CBCA4F /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				DCFAFABB2FF8F08D00CBCA4F /* AuthContainerView.swift */,
+				DCFAFABC2FF8F08D00CBCA4F /* AuthViewModel.swift */,
+				DCFAFABD2FF8F08D00CBCA4F /* Color+Progresa.swift */,
+				DCFAFABE2FF8F08D00CBCA4F /* ForgotPasswordView.swift */,
+				DCFAFABF2FF8F08D00CBCA4F /* LoginView.swift */,
+				DCFAFAC02FF8F08D00CBCA4F /* Perfil.swift */,
+				DCFAFAC12FF8F08D00CBCA4F /* RegisterView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		DCFAFACC2FF8F6B700CBCA4F /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				DCFAFACD2FF8F6DB00CBCA4F /* HomeView.swift */,
+				DCFAFACE2FF8F6DB00CBCA4F /* HomeViewModel.swift */,
+				DCFAFACF2FF8F6DB00CBCA4F /* MainTabView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DCFAFA9F2FF8E62E00CBCA4F /* Avoro */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCFAFAAB2FF8E63000CBCA4F /* Build configuration list for PBXNativeTarget "Avoro" */;
+			buildPhases = (
+				DCFAFA9C2FF8E62E00CBCA4F /* Sources */,
+				DCFAFA9D2FF8E62E00CBCA4F /* Frameworks */,
+				DCFAFA9E2FF8E62E00CBCA4F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				DCFAFAA22FF8E62E00CBCA4F /* Avoro */,
+			);
+			name = Avoro;
+			packageProductDependencies = (
+				DCFAFAAF2FF8E9B400CBCA4F /* Supabase */,
+			);
+			productName = Avoro;
+			productReference = DCFAFAA02FF8E62E00CBCA4F /* Avoro.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DCFAFA982FF8E62E00CBCA4F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2630;
+				LastUpgradeCheck = 2630;
+				TargetAttributes = {
+					DCFAFA9F2FF8E62E00CBCA4F = {
+						CreatedOnToolsVersion = 26.3;
+					};
+				};
+			};
+			buildConfigurationList = DCFAFA9B2FF8E62E00CBCA4F /* Build configuration list for PBXProject "Avoro" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DCFAFA972FF8E62E00CBCA4F;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				DCFAFAAE2FF8E9B400CBCA4F /* XCRemoteSwiftPackageReference "supabase-swift" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = DCFAFAA12FF8E62E00CBCA4F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DCFAFA9F2FF8E62E00CBCA4F /* Avoro */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DCFAFA9E2FF8E62E00CBCA4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DCFAFA9C2FF8E62E00CBCA4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCFAFAC32FF8F08D00CBCA4F /* AuthViewModel.swift in Sources */,
+				DCFAFAC42FF8F08D00CBCA4F /* LoginView.swift in Sources */,
+				DCFAFAD02FF8F6DB00CBCA4F /* HomeView.swift in Sources */,
+				DCFAFAD12FF8F6DB00CBCA4F /* HomeViewModel.swift in Sources */,
+				DCFAFAD22FF8F6DB00CBCA4F /* MainTabView.swift in Sources */,
+				DCFAFAC52FF8F08D00CBCA4F /* Color+Progresa.swift in Sources */,
+				DCFAFAD62FF8F72600CBCA4F /* RutinaService.swift in Sources */,
+				DCFAFAC62FF8F08D00CBCA4F /* RegisterView.swift in Sources */,
+				DCFAFAC82FF8F08D00CBCA4F /* ForgotPasswordView.swift in Sources */,
+				DCFAFAC92FF8F08D00CBCA4F /* Perfil.swift in Sources */,
+				DCFAFACA2FF8F08D00CBCA4F /* AuthContainerView.swift in Sources */,
+				DCFAFAB92FF8EC5000CBCA4F /* SupabaseService.swift in Sources */,
+				DCFAFAB82FF8EC1300CBCA4F /* Equipo.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		DCFAFAA92FF8E63000CBCA4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DCFAFAAA2FF8E63000CBCA4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DCFAFAAC2FF8E63000CBCA4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ricardocanales00.Avoro;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DCFAFAAD2FF8E63000CBCA4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ricardocanales00.Avoro;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DCFAFA9B2FF8E62E00CBCA4F /* Build configuration list for PBXProject "Avoro" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCFAFAA92FF8E63000CBCA4F /* Debug */,
+				DCFAFAAA2FF8E63000CBCA4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DCFAFAAB2FF8E63000CBCA4F /* Build configuration list for PBXNativeTarget "Avoro" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCFAFAAC2FF8E63000CBCA4F /* Debug */,
+				DCFAFAAD2FF8E63000CBCA4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DCFAFAAE2FF8E9B400CBCA4F /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DCFAFAAF2FF8E9B400CBCA4F /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DCFAFAAE2FF8E9B400CBCA4F /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = DCFAFA982FF8E62E00CBCA4F /* Project object */;
+}
