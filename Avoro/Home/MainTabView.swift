@@ -1,23 +1,29 @@
 import SwiftUI
 
 struct MainTabView: View {
+
+    @State private var selectedTab = 0
+
     var body: some View {
-        TabView {
+
+        TabView(selection: $selectedTab) {
+
             NavigationStack {
-                HomeView()
+                HomeView(selectedTab: $selectedTab)
             }
             .tabItem {
                 Label("Inicio", systemImage: "house.fill")
             }
+            .tag(0)
 
             NavigationStack {
-                // TODO: reemplazar por RutinaListView (Épica 2)
                 Text("Listado de rutinas")
                     .navigationTitle("Rutinas")
             }
             .tabItem {
                 Label("Rutinas", systemImage: "dumbbell.fill")
             }
+            .tag(1)
 
             NavigationStack {
                 PerfilPlaceholderView()
@@ -25,6 +31,7 @@ struct MainTabView: View {
             .tabItem {
                 Label("Perfil", systemImage: "person.fill")
             }
+            .tag(2)
         }
         .tint(ProgresaColor.primary)
     }

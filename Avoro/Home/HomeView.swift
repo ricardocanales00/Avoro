@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    @Binding var selectedTab: Int
     @StateObject private var viewModel = HomeViewModel()
 
     var body: some View {
@@ -116,23 +117,24 @@ struct HomeView: View {
     }
 
     // MARK: - Ver todas mis rutinas
-    
 
     private var verTodasMisRutinasCard: some View {
-        NavigationLink {
-            // TODO: conectar con RutinaListView (Épica 2)
-            Text("Listado de rutinas — siguiente pantalla")
+        Button {
+            selectedTab = 1
         } label: {
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Ver todas mis rutinas")
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(ProgresaColor.primary)
+
                     Text("\(viewModel.totalRutinasGuardadas) rutina\(viewModel.totalRutinasGuardadas == 1 ? "" : "s") guardada\(viewModel.totalRutinasGuardadas == 1 ? "" : "s")")
                         .font(.footnote)
                         .foregroundColor(ProgresaColor.textSecondary)
                 }
+
                 Spacer()
+
                 Image(systemName: "chevron.right")
                     .foregroundColor(ProgresaColor.textSecondary)
             }
@@ -140,6 +142,7 @@ struct HomeView: View {
             .background(ProgresaColor.surface)
             .cornerRadius(16)
         }
+        .buttonStyle(.plain)
     }
 
     // MARK: - Estados vacíos / error
@@ -226,6 +229,6 @@ private struct EjercicioPreviewRow: View {
 
 #Preview {
     NavigationStack {
-        HomeView()
+        HomeView(selectedTab: .constant(0))
     }
 }
