@@ -100,9 +100,7 @@ struct HomeView: View {
             }
 
             NavigationLink {
-                // TODO: conectar con la pantalla de Ejecución (Épica 4)
-                // pasándole `dia` como parámetro.
-                Text("Ejecución de rutina — siguiente pantalla")
+                EjecucionRutinaView(dia: dia, unidadPreferida: viewModel.unidadPreferida)
             } label: {
                 HStack {
                     Image(systemName: "play.fill")

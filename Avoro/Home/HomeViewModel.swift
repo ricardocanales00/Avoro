@@ -5,6 +5,7 @@ import Supabase
 @MainActor
 final class HomeViewModel: ObservableObject {
     @Published var nombreUsuario = ""
+    @Published var unidadPreferida = "kg"
     @Published var nombreBloqueRutina = ""
     @Published var diaDeHoy: DiaConEjercicios?
     @Published var totalRutinasGuardadas = 0
@@ -34,11 +35,13 @@ final class HomeViewModel: ObservableObject {
         }
 
         do {
-            async let perfilTask = fetchNombrePerfil(usuarioId)
+            async let perfilTask = fetchPerfil(usuarioId)
             async let rutinaTask = rutinaService.fetchRutinaActiva(usuarioId: usuarioId)
             async let totalTask = rutinaService.contarRutinas(usuarioId: usuarioId)
 
-            nombreUsuario = try await perfilTask
+            let perfil = try await perfilTask
+            nombreUsuario = perfil.nombre
+            unidadPreferida = perfil.unidadPreferida
             totalRutinasGuardadas = try await totalTask
 
             if let rutina = try await rutinaTask {
@@ -75,14 +78,13 @@ final class HomeViewModel: ObservableObject {
         return diasOrdenados[indice]
     }
 
-    private func fetchNombrePerfil(_ usuarioId: UUID) async throws -> String {
-        let perfil: Perfil = try await client
+    private func fetchPerfil(_ usuarioId: UUID) async throws -> Perfil {
+        try await client
             .from("perfiles")
             .select()
             .eq("id", value: usuarioId)
             .single()
             .execute()
             .value
-        return perfil.nombre
     }
 }
