@@ -30,6 +30,11 @@ struct RutinaConDias: Codable, Identifiable {
     var fechaInicioComoDate: Date {
         RutinaConDias.formatoFecha.date(from: fechaInicio) ?? Date()
     }
+    
+    var fechaFinComoDate: Date? {
+        guard let fechaFin else { return nil }
+        return RutinaConDias.formatoFecha.date(from: fechaFin)
+    }
 
     private static let formatoFecha: DateFormatter = {
         let f = DateFormatter()
@@ -74,9 +79,12 @@ struct EjercicioResumen: Codable, Identifiable {
     let nombre: String
     let imagenUrl: String?
     let grupoMuscular: String
+    /// Viene del join `ejercicio.equipo_id -> equipo.id` (ver los `.select()`
+    /// más abajo). Es opcional porque en tu esquema `equipo_id` admite null.
+    let equipo: Equipo?
 
     enum CodingKeys: String, CodingKey {
-        case id, nombre
+        case id, nombre, equipo
         case imagenUrl = "imagen_url"
         case grupoMuscular = "grupo_muscular"
     }
@@ -112,7 +120,12 @@ struct RutinaService {
                             id,
                             nombre,
                             imagen_url,
-                            grupo_muscular
+                            grupo_muscular,
+                            equipo (
+                                id,
+                                nombre,
+                                categoria
+                            )
                         )
                     )
                 )
@@ -124,6 +137,42 @@ struct RutinaService {
             .value
 
         return rutinas.first
+    }
+    
+    /// Trae TODAS las rutinas del usuario con sus días y ejercicios anidados,
+    /// para poder mostrar la correcta según la fecha que se navegue en Home.
+    func fetchTodasConDias(usuarioId: UUID) async throws -> [RutinaConDias] {
+        try await client
+            .from("rutina")
+            .select("""
+                id,
+                nombre,
+                descripcion,
+                fecha_inicio,
+                fecha_fin,
+                activa,
+                dia_rutina (
+                    id,
+                    nombre_dia,
+                    orden,
+                    ejercicio_dia (
+                        id,
+                        series_objetivo,
+                        repeticiones_objetivo,
+                        orden,
+                        ejercicio (
+                            id,
+                            nombre,
+                            imagen_url,
+                            grupo_muscular,
+                            equipo ( id, nombre, categoria )
+                        )
+                    )
+                )
+                """)
+            .eq("usuario_id", value: usuarioId)
+            .execute()
+            .value
     }
 
     /// Cuenta cuántas rutinas totales tiene el usuario (para el texto
@@ -199,7 +248,12 @@ struct RutinaService {
                         id,
                         nombre,
                         imagen_url,
-                        grupo_muscular
+                        grupo_muscular,
+                        equipo (
+                            id,
+                            nombre,
+                            categoria
+                        )
                     )
                 )
                 """)
@@ -262,7 +316,12 @@ struct RutinaService {
                     id,
                     nombre,
                     imagen_url,
-                    grupo_muscular
+                    grupo_muscular,
+                    equipo (
+                        id,
+                        nombre,
+                        categoria
+                    )
                 )
                 """)
             .single()
@@ -299,7 +358,7 @@ struct RutinaService {
     func fetchCatalogoEjercicios() async throws -> [EjercicioResumen] {
         try await client
             .from("ejercicio")
-            .select("id, nombre, imagen_url, grupo_muscular")
+            .select("id, nombre, imagen_url, grupo_muscular, equipo (id, nombre, categoria)")
             .order("grupo_muscular")
             .execute()
             .value

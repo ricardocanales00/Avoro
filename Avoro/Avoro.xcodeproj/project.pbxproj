@@ -37,6 +37,10 @@
 		DCFAFAF52FF9BA6500CBCA4F /* RegistroService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFAF42FF9BA6500CBCA4F /* RegistroService.swift */; };
 		DCFAFAF92FF9BA9600CBCA4F /* EjecucionRutinaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFAF72FF9BA9600CBCA4F /* EjecucionRutinaView.swift */; };
 		DCFAFAFA2FF9BA9600CBCA4F /* EjecucionRutinaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFAF82FF9BA9600CBCA4F /* EjecucionRutinaViewModel.swift */; };
+		DCFAFAFD2FF9CFB900CBCA4F /* ProgresoEjercicioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFAFC2FF9CFB900CBCA4F /* ProgresoEjercicioViewModel.swift */; };
+		DCFAFAFE2FF9CFB900CBCA4F /* ProgresoEjercicioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFAFB2FF9CFB900CBCA4F /* ProgresoEjercicioView.swift */; };
+		DCFAFB012FF9CFE300CBCA4F /* ProgresaComponentes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFB002FF9CFE300CBCA4F /* ProgresaComponentes.swift */; };
+		DCFAFB032FF9E05C00CBCA4F /* CalendarStripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFB022FF9E05C00CBCA4F /* CalendarStripView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +74,10 @@
 		DCFAFAF42FF9BA6500CBCA4F /* RegistroService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistroService.swift; sourceTree = "<group>"; };
 		DCFAFAF72FF9BA9600CBCA4F /* EjecucionRutinaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EjecucionRutinaView.swift; sourceTree = "<group>"; };
 		DCFAFAF82FF9BA9600CBCA4F /* EjecucionRutinaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EjecucionRutinaViewModel.swift; sourceTree = "<group>"; };
+		DCFAFAFB2FF9CFB900CBCA4F /* ProgresoEjercicioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgresoEjercicioView.swift; sourceTree = "<group>"; };
+		DCFAFAFC2FF9CFB900CBCA4F /* ProgresoEjercicioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgresoEjercicioViewModel.swift; sourceTree = "<group>"; };
+		DCFAFB002FF9CFE300CBCA4F /* ProgresaComponentes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgresaComponentes.swift; sourceTree = "<group>"; };
+		DCFAFB022FF9E05C00CBCA4F /* CalendarStripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarStripView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -95,6 +103,7 @@
 		DCFAFA972FF8E62E00CBCA4F = {
 			isa = PBXGroup;
 			children = (
+				DCFAFAFF2FF9CFD800CBCA4F /* Shared */,
 				DCFAFAF62FF9BA7F00CBCA4F /* Ejecucion */,
 				DCFAFAD72FF9B3CA00CBCA4F /* Rutinas */,
 				DCFAFACC2FF8F6B700CBCA4F /* Home */,
@@ -153,6 +162,7 @@
 		DCFAFACC2FF8F6B700CBCA4F /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				DCFAFB022FF9E05C00CBCA4F /* CalendarStripView.swift */,
 				DCFAFACD2FF8F6DB00CBCA4F /* HomeView.swift */,
 				DCFAFACE2FF8F6DB00CBCA4F /* HomeViewModel.swift */,
 				DCFAFACF2FF8F6DB00CBCA4F /* MainTabView.swift */,
@@ -179,10 +189,20 @@
 		DCFAFAF62FF9BA7F00CBCA4F /* Ejecucion */ = {
 			isa = PBXGroup;
 			children = (
+				DCFAFAFB2FF9CFB900CBCA4F /* ProgresoEjercicioView.swift */,
+				DCFAFAFC2FF9CFB900CBCA4F /* ProgresoEjercicioViewModel.swift */,
 				DCFAFAF72FF9BA9600CBCA4F /* EjecucionRutinaView.swift */,
 				DCFAFAF82FF9BA9600CBCA4F /* EjecucionRutinaViewModel.swift */,
 			);
 			path = Ejecucion;
+			sourceTree = "<group>";
+		};
+		DCFAFAFF2FF9CFD800CBCA4F /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				DCFAFB002FF9CFE300CBCA4F /* ProgresaComponentes.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,11 +293,13 @@
 				DCFAFAE72FF9B46A00CBCA4F /* DiaEditorView.swift in Sources */,
 				DCFAFAD02FF8F6DB00CBCA4F /* HomeView.swift in Sources */,
 				DCFAFAD12FF8F6DB00CBCA4F /* HomeViewModel.swift in Sources */,
+				DCFAFB032FF9E05C00CBCA4F /* CalendarStripView.swift in Sources */,
 				DCFAFADF2FF9B43500CBCA4F /* RutinaEditorViewModel.swift in Sources */,
 				DCFAFAD22FF8F6DB00CBCA4F /* MainTabView.swift in Sources */,
 				DCFAFAEF2FF9B4F200CBCA4F /* Rutina.swift in Sources */,
 				DCFAFAC52FF8F08D00CBCA4F /* Color+Progresa.swift in Sources */,
 				DCFAFAD62FF8F72600CBCA4F /* RutinaService.swift in Sources */,
+				DCFAFB012FF9CFE300CBCA4F /* ProgresaComponentes.swift in Sources */,
 				DCFAFAC62FF8F08D00CBCA4F /* RegisterView.swift in Sources */,
 				DCFAFAD92FF9B3F700CBCA4F /* RutinaListView.swift in Sources */,
 				DCFAFAC82FF8F08D00CBCA4F /* ForgotPasswordView.swift in Sources */,
@@ -287,6 +309,8 @@
 				DCFAFAE92FF9B48200CBCA4F /* EjercicioPickerView.swift in Sources */,
 				DCFAFAF32FF9BA4E00CBCA4F /* RegistroEntrenamiento.swift in Sources */,
 				DCFAFACA2FF8F08D00CBCA4F /* AuthContainerView.swift in Sources */,
+				DCFAFAFD2FF9CFB900CBCA4F /* ProgresoEjercicioViewModel.swift in Sources */,
+				DCFAFAFE2FF9CFB900CBCA4F /* ProgresoEjercicioView.swift in Sources */,
 				DCFAFAB92FF8EC5000CBCA4F /* SupabaseService.swift in Sources */,
 				DCFAFADB2FF9B41000CBCA4F /* RutinaListViewModel.swift in Sources */,
 				DCFAFAF92FF9BA9600CBCA4F /* EjecucionRutinaView.swift in Sources */,

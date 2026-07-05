@@ -9,16 +9,34 @@ struct HomeView: View {
             VStack(alignment: .leading, spacing: 20) {
                 header
 
+                CalendarStripView(
+                    dias: viewModel.diasDeLaSemana,
+                    fechaSeleccionada: viewModel.fechaSeleccionada,
+                    etiquetaSemana: viewModel.etiquetaSemana,
+                    fechasCompletadas: viewModel.fechasCompletadas,
+                    onSeleccionar: { fecha in
+                        viewModel.seleccionarFecha(fecha)
+                    },
+                    onSemanaAnterior: {
+                        viewModel.cambiarSemana(-1)
+                    },
+                    onSemanaSiguiente: {
+                        viewModel.cambiarSemana(1)
+                    }
+                )
+
                 if viewModel.isLoading {
                     ProgressView()
                         .frame(maxWidth: .infinity)
-                        .padding(.top, 60)
+                        .padding(.top, 40)
                 } else if let error = viewModel.errorMessage {
                     errorState(mensaje: error)
                 } else if viewModel.sinRutinaActiva {
                     sinRutinaState
+                } else if viewModel.sinEjerciciosEsteDia {
+                    sinEjerciciosEsteDiaState
                 } else {
-                    rutinaDeHoySection
+                    rutinaDelDiaSection
                 }
 
                 verTodasMisRutinasCard
@@ -38,7 +56,7 @@ struct HomeView: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(viewModel.fechaHoyFormateada)
+            Text(viewModel.fechaSeleccionadaFormateada)
                 .font(.subheadline)
                 .foregroundColor(ProgresaColor.textSecondary)
 
@@ -49,14 +67,14 @@ struct HomeView: View {
         .padding(.top, 12)
     }
 
-    // MARK: - Rutina de hoy
+    // MARK: - Rutina del día seleccionado
 
-    private var rutinaDeHoySection: some View {
+    private var rutinaDelDiaSection: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 6) {
                 Image(systemName: "calendar")
                     .font(.footnote)
-                Text("RUTINA DE HOY")
+                Text("RUTINA DE ESTE DÍA")
                     .font(.caption)
                     .fontWeight(.semibold)
                 Spacer()
@@ -68,16 +86,8 @@ struct HomeView: View {
             }
             .foregroundColor(ProgresaColor.textSecondary)
 
-            if let dia = viewModel.diaDeHoy {
+            if let dia = viewModel.diaSeleccionado {
                 diaCard(dia: dia)
-            } else {
-                Text("No hay ejercicios programados para hoy en tu rutina activa.")
-                    .font(.subheadline)
-                    .foregroundColor(ProgresaColor.textSecondary)
-                    .padding()
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(ProgresaColor.surface)
-                    .cornerRadius(16)
             }
         }
     }
@@ -160,6 +170,33 @@ struct HomeView: View {
         .cornerRadius(16)
     }
 
+    private var sinEjerciciosEsteDiaState: some View {
+        VStack(spacing: 12) {
+            ZStack {
+                Circle()
+                    .fill(ProgresaColor.background)
+                    .frame(width: 56, height: 56)
+                Image(systemName: "moon.zzz")
+                    .font(.system(size: 22))
+                    .foregroundColor(ProgresaColor.textSecondary)
+            }
+
+            Text("Día de descanso")
+                .font(.system(size: 17, weight: .bold))
+                .foregroundColor(ProgresaColor.primary)
+
+            Text("No hay rutina prevista para este día. Aprovecha para recuperar.")
+                .font(.footnote)
+                .foregroundColor(ProgresaColor.textSecondary)
+                .multilineTextAlignment(.center)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 32)
+        .padding(.horizontal, 20)
+        .background(ProgresaColor.surface)
+        .cornerRadius(20)
+    }
+
     private func errorState(mensaje: String) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(mensaje)
@@ -191,10 +228,6 @@ private struct EjercicioPreviewRow: View {
                     .font(.system(size: 15, weight: .semibold))
                     .foregroundColor(ProgresaColor.primary)
 
-                // Nota: el peso sugerido (ej. "60 kg" en el prototipo) viene
-                // de la Épica 5 (sugerencia basada en histórico), que aún
-                // no está construida. Por ahora solo mostramos series/reps
-                // objetivo, que sí existen en ejercicio_dia.
                 Text("\(ejercicioDia.seriesObjetivo) series · \(ejercicioDia.repeticionesObjetivo) reps")
                     .font(.footnote)
                     .foregroundColor(ProgresaColor.textSecondary)
