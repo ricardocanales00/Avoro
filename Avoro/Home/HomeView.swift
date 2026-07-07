@@ -110,7 +110,7 @@ struct HomeView: View {
             }
 
             NavigationLink {
-                EjecucionRutinaView(dia: dia, unidadPreferida: viewModel.unidadPreferida)
+                EjecucionRutinaView(dia: dia, unidadPreferida: viewModel.unidadPreferida, fecha: viewModel.fechaSeleccionada)
             } label: {
                 HStack {
                     Image(systemName: "play.fill")

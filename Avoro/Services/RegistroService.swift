@@ -15,15 +15,18 @@ struct RegistroService {
     /// Trae los registros de HOY para un conjunto de ejercicio_dia, para
     /// saber qué ejercicios ya se completaron si el usuario reabre la
     /// pantalla de ejecución a medio entrenamiento.
-    func fetchRegistrosDeHoy(ejercicioDiaIds: [UUID]) async throws -> [RegistroEntrenamiento] {
+    /// Trae los registros guardados para una fecha específica (puede ser
+    /// hoy o una fecha pasada, si el usuario está registrando de forma
+    /// retroactiva). Antes esta función asumía siempre "hoy" — ahora la
+    /// fecha la decide quien llama.
+    func fetchRegistros(ejercicioDiaIds: [UUID], fecha: String) async throws -> [RegistroEntrenamiento] {
         guard !ejercicioDiaIds.isEmpty else { return [] }
-        let hoyTexto = Rutina.formatoFecha.string(from: Date())
 
         return try await client
             .from("registro_entrenamiento")
             .select()
             .in("ejercicio_dia_id", values: ejercicioDiaIds)
-            .eq("fecha", value: hoyTexto)
+            .eq("fecha", value: fecha)
             .execute()
             .value
     }

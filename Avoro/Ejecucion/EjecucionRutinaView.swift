@@ -11,8 +11,13 @@ struct EjecucionRutinaView: View {
     /// Controla la navegación hacia la pantalla de "Progreso" del ejercicio actual.
     @State private var mostrarProgreso = false
  
-    init(dia: DiaConEjercicios, unidadPreferida: String) {
-        _viewModel = StateObject(wrappedValue: EjecucionRutinaViewModel(dia: dia, unidadPreferida: unidadPreferida))
+    /// `fecha` es la fecha con la que se guardará este entrenamiento — normalmente
+    /// "hoy", pero puede ser una fecha pasada si el usuario navegó el calendario
+    /// de Home y decidió registrar retroactivamente.
+    init(dia: DiaConEjercicios, unidadPreferida: String, fecha: Date = Date()) {
+        _viewModel = StateObject(
+            wrappedValue: EjecucionRutinaViewModel(dia: dia, unidadPreferida: unidadPreferida, fechaEntrenamiento: fecha)
+        )
     }
  
     private var ejercicioActualBinding: Binding<EjercicioEjecucionState>? {
@@ -39,7 +44,7 @@ struct EjecucionRutinaView: View {
         .background(ProgresaColor.background)
         .navigationBarHidden(true)
         .task {
-            await viewModel.cargarProgresoDeHoy()
+            await viewModel.cargarProgresoDeLaFecha()
             await viewModel.cargarUltimosPesos()
         }
         .safeAreaInset(edge: .bottom) {
@@ -333,9 +338,6 @@ private struct SeriesCard: View {
         }
     }
  
-    // NOTA: asumo que EjercicioDiaConEjercicio expone `repeticionesObjetivo`
-    // (igual que ya expone `seriesObjetivo`), reflejando la columna
-    // `repeticiones_objetivo` de `ejercicio_dia` en tu esquema SQL.
     private var repsPlaceholder: String {
         String(estado.ejercicioDia.repeticionesObjetivo)
     }
@@ -370,5 +372,3 @@ private struct SeriesCard: View {
             : String(format: "%.1f", peso)
     }
 }
- 
- 
