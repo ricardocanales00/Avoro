@@ -72,6 +72,20 @@ final class HomeViewModel: ObservableObject {
     var totalRutinasGuardadas: Int { rutinas.count }
     var sinRutinaActiva: Bool { rutinas.isEmpty }
 
+    /// Días de la semana visible que SÍ tienen una rutina asignada (con o
+    /// sin registros todavía) — para el punto gris del calendario. No pide
+    /// nada al servidor: se calcula sobre `rutinas`, ya cargadas.
+    var fechasConRutina: Set<Date> {
+        let calendar = Calendar.current
+        var resultado: Set<Date> = []
+        for fecha in diasDeLaSemana {
+            if let rutina = rutinaParaFecha(fecha), diaParaFecha(fecha, rutina: rutina) != nil {
+                resultado.insert(calendar.startOfDay(for: fecha))
+            }
+        }
+        return resultado
+    }
+
     /// true cuando SÍ tienes rutinas guardadas, pero ninguna cubre la
     /// fecha elegida (hueco entre rutinas, antes de la primera, después
     /// de la última, o una rutina sin días).

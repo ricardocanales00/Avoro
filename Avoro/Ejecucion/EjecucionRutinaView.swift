@@ -10,6 +10,9 @@ struct EjecucionRutinaView: View {
  
     /// Controla la navegación hacia la pantalla de "Progreso" del ejercicio actual.
     @State private var mostrarProgreso = false
+
+    /// Controla la navegación hacia el chat de sustitución de ejercicio.
+    @State private var mostrarSustitucion = false
  
     /// `fecha` es la fecha con la que se guardará este entrenamiento — normalmente
     /// "hoy", pero puede ser una fecha pasada si el usuario navegó el calendario
@@ -60,6 +63,18 @@ struct EjecucionRutinaView: View {
                     imagenUrl: estado.ejercicioDia.ejercicio.imagenUrl,
                     unidadSeleccionada: viewModel.unidadSeleccionada
                 )
+            }
+        }
+        .navigationDestination(isPresented: $mostrarSustitucion) {
+            if let estado = ejercicioActualBinding?.wrappedValue, let usuarioId = viewModel.usuarioId {
+                let indiceASustituir = indiceActual
+                SustituirEjercicioView(
+                    ejercicioDiaId: estado.ejercicioDia.id,
+                    ejercicioOriginal: estado.ejercicioDia.ejercicio,
+                    usuarioId: usuarioId
+                ) { nuevoEjercicio in
+                    viewModel.aplicarSustitucion(nuevoEjercicio, enIndice: indiceASustituir)
+                }
             }
         }
     }
@@ -188,7 +203,7 @@ struct EjecucionRutinaView: View {
  
             HStack(spacing: 12) {
                 Button {
-                    // TODO: lógica de sustitución de ejercicio.
+                    mostrarSustitucion = true
                 } label: {
                     Label("Sustituir", systemImage: "arrow.triangle.2.circlepath")
                         .frame(maxWidth: .infinity)

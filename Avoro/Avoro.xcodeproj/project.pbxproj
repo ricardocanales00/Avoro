@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC8B7EBA2FFD9EAB00D636AF /* SustituirEjercicioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B7EB82FFD9EAB00D636AF /* SustituirEjercicioView.swift */; };
+		DC8B7EBB2FFD9EAB00D636AF /* SustituirEjercicioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B7EB92FFD9EAB00D636AF /* SustituirEjercicioViewModel.swift */; };
+		DC8B7EBD2FFD9EC700D636AF /* SustitucionModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B7EBC2FFD9EC700D636AF /* SustitucionModels.swift */; };
+		DC8B7EBF2FFD9ED900D636AF /* SustitucionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B7EBE2FFD9ED900D636AF /* SustitucionService.swift */; };
 		DCFAFAB02FF8E9B400CBCA4F /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = DCFAFAAF2FF8E9B400CBCA4F /* Supabase */; };
 		DCFAFAB82FF8EC1300CBCA4F /* Equipo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFAB62FF8EAC100CBCA4F /* Equipo.swift */; };
 		DCFAFAB92FF8EC5000CBCA4F /* SupabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFAB32FF8EA4600CBCA4F /* SupabaseService.swift */; };
@@ -44,6 +48,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DC8B7EB82FFD9EAB00D636AF /* SustituirEjercicioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SustituirEjercicioView.swift; sourceTree = "<group>"; };
+		DC8B7EB92FFD9EAB00D636AF /* SustituirEjercicioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SustituirEjercicioViewModel.swift; sourceTree = "<group>"; };
+		DC8B7EBC2FFD9EC700D636AF /* SustitucionModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SustitucionModels.swift; sourceTree = "<group>"; };
+		DC8B7EBE2FFD9ED900D636AF /* SustitucionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SustitucionService.swift; sourceTree = "<group>"; };
 		DCFAFAA02FF8E62E00CBCA4F /* Avoro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Avoro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCFAFAB32FF8EA4600CBCA4F /* SupabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseService.swift; sourceTree = "<group>"; };
 		DCFAFAB62FF8EAC100CBCA4F /* Equipo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipo.swift; sourceTree = "<group>"; };
@@ -100,9 +108,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DC8B7EB62FFD9E5E00D636AF /* Sustituir */ = {
+			isa = PBXGroup;
+			children = (
+				DC8B7EB82FFD9EAB00D636AF /* SustituirEjercicioView.swift */,
+				DC8B7EB92FFD9EAB00D636AF /* SustituirEjercicioViewModel.swift */,
+			);
+			path = Sustituir;
+			sourceTree = "<group>";
+		};
 		DCFAFA972FF8E62E00CBCA4F = {
 			isa = PBXGroup;
 			children = (
+				DC8B7EB62FFD9E5E00D636AF /* Sustituir */,
 				DCFAFAFF2FF9CFD800CBCA4F /* Shared */,
 				DCFAFAF62FF9BA7F00CBCA4F /* Ejecucion */,
 				DCFAFAD72FF9B3CA00CBCA4F /* Rutinas */,
@@ -129,6 +147,7 @@
 				DCFAFAF42FF9BA6500CBCA4F /* RegistroService.swift */,
 				DCFAFAD52FF8F72600CBCA4F /* RutinaService.swift */,
 				DCFAFAB32FF8EA4600CBCA4F /* SupabaseService.swift */,
+				DC8B7EBE2FFD9ED900D636AF /* SustitucionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -141,6 +160,7 @@
 				DCFAFAEA2FF9B4D500CBCA4F /* DiaRutina.swift */,
 				DCFAFAEB2FF9B4D500CBCA4F /* EjercicioDiaPayloads.swift */,
 				DCFAFAB62FF8EAC100CBCA4F /* Equipo.swift */,
+				DC8B7EBC2FFD9EC700D636AF /* SustitucionModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -303,18 +323,22 @@
 				DCFAFAC62FF8F08D00CBCA4F /* RegisterView.swift in Sources */,
 				DCFAFAD92FF9B3F700CBCA4F /* RutinaListView.swift in Sources */,
 				DCFAFAC82FF8F08D00CBCA4F /* ForgotPasswordView.swift in Sources */,
+				DC8B7EBD2FFD9EC700D636AF /* SustitucionModels.swift in Sources */,
 				DCFAFAC92FF8F08D00CBCA4F /* Perfil.swift in Sources */,
 				DCFAFAE12FF9B44B00CBCA4F /* EstructuraRutinaView.swift in Sources */,
 				DCFAFADD2FF9B42900CBCA4F /* RutinaEditorView.swift in Sources */,
 				DCFAFAE92FF9B48200CBCA4F /* EjercicioPickerView.swift in Sources */,
 				DCFAFAF32FF9BA4E00CBCA4F /* RegistroEntrenamiento.swift in Sources */,
 				DCFAFACA2FF8F08D00CBCA4F /* AuthContainerView.swift in Sources */,
+				DC8B7EBF2FFD9ED900D636AF /* SustitucionService.swift in Sources */,
 				DCFAFAFD2FF9CFB900CBCA4F /* ProgresoEjercicioViewModel.swift in Sources */,
 				DCFAFAFE2FF9CFB900CBCA4F /* ProgresoEjercicioView.swift in Sources */,
 				DCFAFAB92FF8EC5000CBCA4F /* SupabaseService.swift in Sources */,
 				DCFAFADB2FF9B41000CBCA4F /* RutinaListViewModel.swift in Sources */,
 				DCFAFAF92FF9BA9600CBCA4F /* EjecucionRutinaView.swift in Sources */,
 				DCFAFAFA2FF9BA9600CBCA4F /* EjecucionRutinaViewModel.swift in Sources */,
+				DC8B7EBA2FFD9EAB00D636AF /* SustituirEjercicioView.swift in Sources */,
+				DC8B7EBB2FFD9EAB00D636AF /* SustituirEjercicioViewModel.swift in Sources */,
 				DCFAFAB82FF8EC1300CBCA4F /* Equipo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

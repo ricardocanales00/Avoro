@@ -5,51 +5,139 @@ struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                header
+        ZStack(alignment: .top) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    header
 
-                CalendarStripView(
-                    dias: viewModel.diasDeLaSemana,
-                    fechaSeleccionada: viewModel.fechaSeleccionada,
-                    etiquetaSemana: viewModel.etiquetaSemana,
-                    fechasCompletadas: viewModel.fechasCompletadas,
-                    onSeleccionar: { fecha in
-                        viewModel.seleccionarFecha(fecha)
-                    },
-                    onSemanaAnterior: {
-                        viewModel.cambiarSemana(-1)
-                    },
-                    onSemanaSiguiente: {
-                        viewModel.cambiarSemana(1)
+                    CalendarStripView(
+                        dias: viewModel.diasDeLaSemana,
+                        fechaSeleccionada: viewModel.fechaSeleccionada,
+                        etiquetaSemana: viewModel.etiquetaSemana,
+                        fechasCompletadas: viewModel.fechasCompletadas,
+                        fechasConRutina: viewModel.fechasConRutina,
+                        onSeleccionar: { fecha in
+                            viewModel.seleccionarFecha(fecha)
+                        },
+                        onSemanaAnterior: {
+                            viewModel.cambiarSemana(-1)
+                        },
+                        onSemanaSiguiente: {
+                            viewModel.cambiarSemana(1)
+                        }
+                    )
+
+                    if viewModel.isLoading {
+                        ProgressView()
+                            .frame(maxWidth: .infinity)
+                            .padding(.top, 40)
+                    } else if let error = viewModel.errorMessage {
+                        errorState(mensaje: error)
+                    } else if viewModel.sinRutinaActiva {
+                        sinRutinaState
+                    } else if viewModel.sinEjerciciosEsteDia {
+                        sinEjerciciosEsteDiaState
+                    } else {
+                        rutinaDelDiaSection
                     }
-                )
 
-                if viewModel.isLoading {
-                    ProgressView()
-                        .frame(maxWidth: .infinity)
-                        .padding(.top, 40)
-                } else if let error = viewModel.errorMessage {
-                    errorState(mensaje: error)
-                } else if viewModel.sinRutinaActiva {
-                    sinRutinaState
-                } else if viewModel.sinEjerciciosEsteDia {
-                    sinEjerciciosEsteDiaState
-                } else {
-                    rutinaDelDiaSection
+                    verTodasMisRutinasCard
+
+                    appsSection
                 }
-
-                verTodasMisRutinasCard
+                .padding(20)
             }
-            .padding(20)
+            .background(ProgresaColor.background)
+            .refreshable {
+                await viewModel.cargarDatos()
+            }
+            .task {
+                await viewModel.cargarDatos()
+            }
+
+            // Cubre el status bar: sin esto, el header ("Hola, ...") puede
+            // scrollear por debajo del reloj/íconos del sistema porque esta
+            // pantalla no tiene navigation bar visible que reserve ese
+            // espacio de forma opaca.
+            //
+            // NOTA: se usa una altura fija (60pt) en vez de leer
+            // `GeometryProxy.safeAreaInsets.top` con un GeometryReader de
+            // altura 0 — ese truco resultó poco confiable aquí (reportaba
+            // 0 en vez del inset real). 60pt cubre con margen el status
+            // bar de cualquier iPhone actual (con o sin Dynamic Island);
+            // como es del mismo color que el fondo, cubrir de más no se
+            // nota.
+            Color(ProgresaColor.background)
+                .frame(height: 60)
+                .ignoresSafeArea(edges: .top)
         }
-        .background(ProgresaColor.background)
-        .refreshable {
-            await viewModel.cargarDatos()
+    }
+
+    // MARK: - Apps (sin funcionalidad todavía)
+
+    private var appsSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Apps")
+                .font(.system(size: 20, weight: .bold))
+                .foregroundColor(ProgresaColor.primary)
+
+            VStack(spacing: 0) {
+                appRow(nombre: "Spotify", colorIcono: Color(red: 0.11, green: 0.84, blue: 0.38), estado: .vinculado)
+                Divider().padding(.leading, 66)
+                appRow(nombre: "Apple Music", colorIcono: Color(red: 0.98, green: 0.14, blue: 0.23), estado: .conectar)
+            }
+            .background(ProgresaColor.surface)
+            .cornerRadius(16)
         }
-        .task {
-            await viewModel.cargarDatos()
+    }
+
+    private enum EstadoConexionApp {
+        case vinculado
+        case conectar
+    }
+
+    private func appRow(nombre: String, colorIcono: Color, estado: EstadoConexionApp) -> some View {
+        HStack(spacing: 12) {
+            ZStack {
+                Circle().fill(colorIcono)
+                Image(systemName: "music.note")
+                    .foregroundColor(.white)
+                    .font(.system(size: 16, weight: .bold))
+            }
+            .frame(width: 40, height: 40)
+
+            Text(nombre)
+                .font(.system(size: 16, weight: .semibold))
+                .foregroundColor(ProgresaColor.primary)
+
+            Spacer()
+
+            Button {
+                // TODO: integración real pendiente — sin acción por ahora.
+            } label: {
+                switch estado {
+                case .vinculado:
+                    Label("Vinculado", systemImage: "checkmark")
+                        .font(.footnote)
+                        .fontWeight(.semibold)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(ProgresaColor.accent)
+                        .foregroundColor(.white)
+                        .cornerRadius(20)
+                case .conectar:
+                    Text("Conectar")
+                        .font(.footnote)
+                        .fontWeight(.semibold)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 6)
+                        .background(ProgresaColor.primary)
+                        .foregroundColor(.white)
+                        .cornerRadius(20)
+                }
+            }
         }
+        .padding(14)
     }
 
     // MARK: - Header
@@ -109,15 +197,34 @@ struct HomeView: View {
                 }
             }
 
-            NavigationLink {
-                EjecucionRutinaView(dia: dia, unidadPreferida: viewModel.unidadPreferida, fecha: viewModel.fechaSeleccionada)
-            } label: {
-                HStack {
-                    Image(systemName: "play.fill")
-                    Text("Iniciar rutina")
+            VStack(spacing: 10) {
+                Button {
+                    // TODO: Modo Entrenador — sin funcionalidad todavía.
+                } label: {
+                    HStack {
+                        Image(systemName: "sparkles")
+                        Text("Modo Entrenador")
+                    }
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 14)
+                    .background(ProgresaColor.primary)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(ProgresaColor.accent, lineWidth: 2)
+                    )
+                    .cornerRadius(12)
                 }
+
+                NavigationLink {
+                    EjecucionRutinaView(dia: dia, unidadPreferida: viewModel.unidadPreferida, fecha: viewModel.fechaSeleccionada)
+                } label: {
+                    Text("Iniciar rutina")
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(ProgresaOutlineButtonStyle())
             }
-            .buttonStyle(ProgresaPrimaryButtonStyle())
         }
         .padding(16)
         .background(ProgresaColor.surface)

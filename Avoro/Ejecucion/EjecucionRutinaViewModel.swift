@@ -65,6 +65,10 @@ final class EjecucionRutinaViewModel: ObservableObject {
     var total: Int { ejercicios.count }
     var rutinaTerminada: Bool { total > 0 && completados == total }
 
+    /// Expuesto para que la vista pueda armar `SustituirEjercicioView` sin
+    /// necesitar `import Supabase` ni tocar `client` directamente.
+    var usuarioId: UUID? { client.auth.currentUser?.id }
+
     init(dia: DiaConEjercicios, unidadPreferida: String, fechaEntrenamiento: Date = Date()) {
         self.dia = dia
         self.unidadSeleccionada = unidadPreferida
@@ -158,6 +162,32 @@ final class EjecucionRutinaViewModel: ObservableObject {
             return peso / kgALb
         }
         return peso
+    }
+
+    /// Se llama al volver del chat de sustitución. Reemplaza SOLO el
+    /// ejercicio en `indice` (mismo `ejercicio_dia_id`/series/orden, pero
+    /// apuntando al nuevo ejercicio del catálogo) sin tocar el resto del
+    /// arreglo — así el usuario no pierde el progreso ya guardado de los
+    /// demás ejercicios del día ni cambia de página.
+    ///
+    /// Nota (deuda técnica ya documentada): esto reinicia las series
+    /// capturadas y `completado` a su estado inicial para este ejercicio,
+    /// porque son datos del ejercicio anterior. El histórico de
+    /// `ultimosPesos` para este `ejercicio_dia_id` sigue reflejando el
+    /// ejercicio viejo hasta que se recargue — ver Sección 7.10 del doc
+    /// de requisitos.
+    func aplicarSustitucion(_ nuevoEjercicio: EjercicioResumen, enIndice indice: Int) {
+        guard ejercicios.indices.contains(indice) else { return }
+
+        let anterior = ejercicios[indice].ejercicioDia
+        let actualizado = EjercicioDiaConEjercicio(
+            id: anterior.id,
+            seriesObjetivo: anterior.seriesObjetivo,
+            repeticionesObjetivo: anterior.repeticionesObjetivo,
+            orden: anterior.orden,
+            ejercicio: nuevoEjercicio
+        )
+        ejercicios[indice] = EjercicioEjecucionState(ejercicioDia: actualizado)
     }
 
     /// Valida y guarda todas las series de un ejercicio en una sola operación.

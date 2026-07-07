@@ -5,6 +5,7 @@ struct CalendarStripView: View {
     let fechaSeleccionada: Date
     let etiquetaSemana: String
     let fechasCompletadas: Set<Date>
+    let fechasConRutina: Set<Date>
     let onSeleccionar: (Date) -> Void
     let onSemanaAnterior: () -> Void
     let onSemanaSiguiente: () -> Void
@@ -35,7 +36,6 @@ struct CalendarStripView: View {
                 ForEach(Array(dias.enumerated()), id: \.offset) { index, fecha in
                     let seleccionado = calendar.isDate(fecha, inSameDayAs: fechaSeleccionada)
                     let esHoy = calendar.isDateInToday(fecha)
-                    let completado = fechasCompletadas.contains { calendar.isDate($0, inSameDayAs: fecha) }
 
                     Button {
                         onSeleccionar(fecha)
@@ -54,9 +54,8 @@ struct CalendarStripView: View {
                                 .clipShape(Circle())
 
                             Circle()
-                                .fill(ProgresaColor.accent)
+                                .fill(colorPunto(fecha: fecha) ?? .clear)
                                 .frame(width: 5, height: 5)
-                                .opacity(completado ? 1 : 0)
                         }
                         .frame(maxWidth: .infinity)
                     }
@@ -78,6 +77,19 @@ struct CalendarStripView: View {
         if esHoy { return ProgresaColor.accent }
         return ProgresaColor.primary
     }
+
+    /// Naranja/coral = ya se registró entrenamiento ese día.
+    /// Gris = tiene rutina asignada pero todavía no hay registros.
+    /// nil (sin punto) = ese día no tiene ninguna rutina asignada.
+    private func colorPunto(fecha: Date) -> Color? {
+        if fechasCompletadas.contains(where: { calendar.isDate($0, inSameDayAs: fecha) }) {
+            return ProgresaColor.accent
+        }
+        if fechasConRutina.contains(where: { calendar.isDate($0, inSameDayAs: fecha) }) {
+            return ProgresaColor.textSecondary.opacity(0.5)
+        }
+        return nil
+    }
 }
 
 #Preview {
@@ -88,6 +100,7 @@ struct CalendarStripView: View {
         fechaSeleccionada: Date(),
         etiquetaSemana: "Julio 2026",
         fechasCompletadas: [Calendar.current.startOfDay(for: Date())],
+        fechasConRutina: [],
         onSeleccionar: { _ in },
         onSemanaAnterior: {},
         onSemanaSiguiente: {}
