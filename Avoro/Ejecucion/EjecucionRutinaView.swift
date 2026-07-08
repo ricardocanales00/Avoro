@@ -46,6 +46,9 @@ struct EjecucionRutinaView: View {
         }
         .background(ProgresaColor.background)
         .navigationBarHidden(true)
+        .onAppear {
+            RecordatorioEntrenamientoService.solicitarPermisoSiHaceFalta()
+        }
         .task {
             await viewModel.cargarProgresoDeLaFecha()
             await viewModel.cargarUltimosPesos()

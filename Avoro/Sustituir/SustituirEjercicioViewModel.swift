@@ -61,6 +61,7 @@ final class SustituirEjercicioViewModel: ObservableObject {
                 MensajeChatSustitucion(rol: .asistente, texto: respuesta.mensaje, sugerencias: respuesta.sugerencias)
             )
         } catch {
+            print("❌ Error al pedir sugerencia:", error)
             errorMessage = "No se pudo contactar al asistente. Intenta de nuevo."
         }
     }

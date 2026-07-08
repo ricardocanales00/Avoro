@@ -41,8 +41,6 @@ struct HomeView: View {
                         rutinaDelDiaSection
                     }
 
-                    verTodasMisRutinasCard
-
                     appsSection
                 }
                 .padding(20)
@@ -229,35 +227,6 @@ struct HomeView: View {
         .padding(16)
         .background(ProgresaColor.surface)
         .cornerRadius(20)
-    }
-
-    // MARK: - Ver todas mis rutinas
-
-    private var verTodasMisRutinasCard: some View {
-        Button {
-            selectedTab = 1
-        } label: {
-            HStack {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("Ver todas mis rutinas")
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(ProgresaColor.primary)
-
-                    Text("\(viewModel.totalRutinasGuardadas) rutina\(viewModel.totalRutinasGuardadas == 1 ? "" : "s") guardada\(viewModel.totalRutinasGuardadas == 1 ? "" : "s")")
-                        .font(.footnote)
-                        .foregroundColor(ProgresaColor.textSecondary)
-                }
-
-                Spacer()
-
-                Image(systemName: "chevron.right")
-                    .foregroundColor(ProgresaColor.textSecondary)
-            }
-            .padding(16)
-            .background(ProgresaColor.surface)
-            .cornerRadius(16)
-        }
-        .buttonStyle(.plain)
     }
 
     // MARK: - Estados vacíos / error

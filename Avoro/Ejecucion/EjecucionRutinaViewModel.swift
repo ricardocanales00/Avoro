@@ -102,6 +102,16 @@ final class EjecucionRutinaViewModel: ObservableObject {
                 let objetivo = ejercicios[idx].ejercicioDia.seriesObjetivo
                 ejercicios[idx].completado = ejercicios[idx].registrosGuardadosHoy.count >= objetivo
             }
+
+            // Si ya terminó, no tiene sentido seguir recordándole que registre
+            // datos. Si no ha terminado, (re)arranca el conteo de 5 minutos —
+            // esto cubre tanto la carga inicial como cada guardado exitoso,
+            // ya que guardarSeries() llama a esta función al final.
+            if rutinaTerminada {
+                RecordatorioEntrenamientoService.cancelar()
+            } else {
+                RecordatorioEntrenamientoService.reprogramar()
+            }
         } catch {
             errorMessage = "No se pudo cargar tu progreso de este día."
         }

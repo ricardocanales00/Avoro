@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC4701992FFDB1EE00BF5B99 /* PerfilViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4701972FFDB1EE00BF5B99 /* PerfilViewModel.swift */; };
+		DC47019A2FFDB1EE00BF5B99 /* PerfilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4701962FFDB1EE00BF5B99 /* PerfilView.swift */; };
+		DC47019C2FFE0AA900BF5B99 /* EquipoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC47019B2FFE0AA900BF5B99 /* EquipoService.swift */; };
+		DC4701A12FFE0ADB00BF5B99 /* EditarEjerciciosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC47019E2FFE0ADB00BF5B99 /* EditarEjerciciosViewModel.swift */; };
+		DC4701A22FFE0ADB00BF5B99 /* EditarEquipoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4701A02FFE0ADB00BF5B99 /* EditarEquipoViewModel.swift */; };
+		DC4701A32FFE0ADB00BF5B99 /* EditarEjerciciosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC47019D2FFE0ADB00BF5B99 /* EditarEjerciciosView.swift */; };
+		DC4701A42FFE0ADB00BF5B99 /* EditarEquipoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC47019F2FFE0ADB00BF5B99 /* EditarEquipoView.swift */; };
+		DC4701A62FFE103100BF5B99 /* RecordatorioEntrenamientoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4701A52FFE103100BF5B99 /* RecordatorioEntrenamientoService.swift */; };
 		DC8B7EBA2FFD9EAB00D636AF /* SustituirEjercicioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B7EB82FFD9EAB00D636AF /* SustituirEjercicioView.swift */; };
 		DC8B7EBB2FFD9EAB00D636AF /* SustituirEjercicioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B7EB92FFD9EAB00D636AF /* SustituirEjercicioViewModel.swift */; };
 		DC8B7EBD2FFD9EC700D636AF /* SustitucionModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B7EBC2FFD9EC700D636AF /* SustitucionModels.swift */; };
@@ -48,6 +56,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DC4701962FFDB1EE00BF5B99 /* PerfilView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfilView.swift; sourceTree = "<group>"; };
+		DC4701972FFDB1EE00BF5B99 /* PerfilViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfilViewModel.swift; sourceTree = "<group>"; };
+		DC47019B2FFE0AA900BF5B99 /* EquipoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipoService.swift; sourceTree = "<group>"; };
+		DC47019D2FFE0ADB00BF5B99 /* EditarEjerciciosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditarEjerciciosView.swift; sourceTree = "<group>"; };
+		DC47019E2FFE0ADB00BF5B99 /* EditarEjerciciosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditarEjerciciosViewModel.swift; sourceTree = "<group>"; };
+		DC47019F2FFE0ADB00BF5B99 /* EditarEquipoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditarEquipoView.swift; sourceTree = "<group>"; };
+		DC4701A02FFE0ADB00BF5B99 /* EditarEquipoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditarEquipoViewModel.swift; sourceTree = "<group>"; };
+		DC4701A52FFE103100BF5B99 /* RecordatorioEntrenamientoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordatorioEntrenamientoService.swift; sourceTree = "<group>"; };
 		DC8B7EB82FFD9EAB00D636AF /* SustituirEjercicioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SustituirEjercicioView.swift; sourceTree = "<group>"; };
 		DC8B7EB92FFD9EAB00D636AF /* SustituirEjercicioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SustituirEjercicioViewModel.swift; sourceTree = "<group>"; };
 		DC8B7EBC2FFD9EC700D636AF /* SustitucionModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SustitucionModels.swift; sourceTree = "<group>"; };
@@ -108,6 +124,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DC4701982FFDB1EE00BF5B99 /* Perfil */ = {
+			isa = PBXGroup;
+			children = (
+				DC47019D2FFE0ADB00BF5B99 /* EditarEjerciciosView.swift */,
+				DC47019E2FFE0ADB00BF5B99 /* EditarEjerciciosViewModel.swift */,
+				DC47019F2FFE0ADB00BF5B99 /* EditarEquipoView.swift */,
+				DC4701A02FFE0ADB00BF5B99 /* EditarEquipoViewModel.swift */,
+				DC4701962FFDB1EE00BF5B99 /* PerfilView.swift */,
+				DC4701972FFDB1EE00BF5B99 /* PerfilViewModel.swift */,
+			);
+			path = Perfil;
+			sourceTree = "<group>";
+		};
 		DC8B7EB62FFD9E5E00D636AF /* Sustituir */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +159,7 @@
 				DCFAFAB12FF8EA1000CBCA4F /* Services */,
 				DCFAFAA22FF8E62E00CBCA4F /* Avoro */,
 				DCFAFAA12FF8E62E00CBCA4F /* Products */,
+				DC4701982FFDB1EE00BF5B99 /* Perfil */,
 			);
 			sourceTree = "<group>";
 		};
@@ -144,10 +174,12 @@
 		DCFAFAB12FF8EA1000CBCA4F /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				DC4701A52FFE103100BF5B99 /* RecordatorioEntrenamientoService.swift */,
 				DCFAFAF42FF9BA6500CBCA4F /* RegistroService.swift */,
 				DCFAFAD52FF8F72600CBCA4F /* RutinaService.swift */,
 				DCFAFAB32FF8EA4600CBCA4F /* SupabaseService.swift */,
 				DC8B7EBE2FFD9ED900D636AF /* SustitucionService.swift */,
+				DC47019B2FFE0AA900BF5B99 /* EquipoService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -331,14 +363,22 @@
 				DCFAFAF32FF9BA4E00CBCA4F /* RegistroEntrenamiento.swift in Sources */,
 				DCFAFACA2FF8F08D00CBCA4F /* AuthContainerView.swift in Sources */,
 				DC8B7EBF2FFD9ED900D636AF /* SustitucionService.swift in Sources */,
+				DC4701A12FFE0ADB00BF5B99 /* EditarEjerciciosViewModel.swift in Sources */,
+				DC4701A22FFE0ADB00BF5B99 /* EditarEquipoViewModel.swift in Sources */,
+				DC4701A32FFE0ADB00BF5B99 /* EditarEjerciciosView.swift in Sources */,
+				DC4701A42FFE0ADB00BF5B99 /* EditarEquipoView.swift in Sources */,
 				DCFAFAFD2FF9CFB900CBCA4F /* ProgresoEjercicioViewModel.swift in Sources */,
 				DCFAFAFE2FF9CFB900CBCA4F /* ProgresoEjercicioView.swift in Sources */,
 				DCFAFAB92FF8EC5000CBCA4F /* SupabaseService.swift in Sources */,
 				DCFAFADB2FF9B41000CBCA4F /* RutinaListViewModel.swift in Sources */,
+				DC47019C2FFE0AA900BF5B99 /* EquipoService.swift in Sources */,
 				DCFAFAF92FF9BA9600CBCA4F /* EjecucionRutinaView.swift in Sources */,
 				DCFAFAFA2FF9BA9600CBCA4F /* EjecucionRutinaViewModel.swift in Sources */,
 				DC8B7EBA2FFD9EAB00D636AF /* SustituirEjercicioView.swift in Sources */,
 				DC8B7EBB2FFD9EAB00D636AF /* SustituirEjercicioViewModel.swift in Sources */,
+				DC4701992FFDB1EE00BF5B99 /* PerfilViewModel.swift in Sources */,
+				DC47019A2FFDB1EE00BF5B99 /* PerfilView.swift in Sources */,
+				DC4701A62FFE103100BF5B99 /* RecordatorioEntrenamientoService.swift in Sources */,
 				DCFAFAB82FF8EC1300CBCA4F /* Equipo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -472,6 +512,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DU6T2N6B5L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -484,7 +525,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ricardocanales00.Avoro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ricardocanales.avoro2026;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -503,6 +544,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DU6T2N6B5L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -515,7 +557,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ricardocanales00.Avoro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ricardocanales.avoro2026;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;

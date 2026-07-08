@@ -25,7 +25,7 @@ struct MainTabView: View {
             .tag(1)
 
             NavigationStack {
-                PerfilPlaceholderView()
+                PerfilView()
             }
             .tabItem {
                 Label("Perfil", systemImage: "person.fill")
@@ -33,26 +33,6 @@ struct MainTabView: View {
             .tag(2)
         }
         .tint(ProgresaColor.primary)
-    }
-}
-
-/// Placeholder temporal solo para poder probar signOut mientras
-/// construimos la pantalla de Perfil real (Épica 8).
-private struct PerfilPlaceholderView: View {
-    @EnvironmentObject var authViewModel: AuthViewModel
-
-    var body: some View {
-        VStack(spacing: 16) {
-            Text("Perfil — pantalla pendiente")
-                .foregroundColor(ProgresaColor.textSecondary)
-
-            Button("Cerrar sesión") {
-                Task { await authViewModel.signOut() }
-            }
-            .buttonStyle(ProgresaPrimaryButtonStyle())
-            .padding(.horizontal, 40)
-        }
-        .navigationTitle("Perfil")
     }
 }
 
