@@ -38,6 +38,9 @@ struct HomeView: View {
                     } else if viewModel.sinEjerciciosEsteDia {
                         sinEjerciciosEsteDiaState
                     } else {
+                        if viewModel.diaSeleccionadoCompletado {
+                            banderaCompletada
+                        }
                         rutinaDelDiaSection
                     }
 
@@ -75,14 +78,16 @@ struct HomeView: View {
 
     private var appsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Apps")
+            Text("Apps y dispositivos")
                 .font(.system(size: 20, weight: .bold))
                 .foregroundColor(ProgresaColor.primary)
 
             VStack(spacing: 0) {
                 appRow(nombre: "Spotify", colorIcono: Color(red: 0.11, green: 0.84, blue: 0.38), estado: .vinculado)
-                Divider().padding(.leading, 66)
                 appRow(nombre: "Apple Music", colorIcono: Color(red: 0.98, green: 0.14, blue: 0.23), estado: .conectar)
+                Divider().padding(.leading, 66)
+                appRow(nombre: "Apple Watch", colorIcono: Color(red: 0.98, green: 0.14, blue: 0.23), estado: .conectar)
+                appRow(nombre: "Garmin", colorIcono: Color(red: 0.98, green: 0.14, blue: 0.23), estado: .conectar)
             }
             .background(ProgresaColor.surface)
             .cornerRadius(16)
@@ -155,6 +160,21 @@ struct HomeView: View {
 
     // MARK: - Rutina del día seleccionado
 
+    private var banderaCompletada: some View {
+        HStack(spacing: 10) {
+            Image(systemName: "checkmark.seal.fill")
+                .foregroundColor(ProgresaColor.accent)
+            Text("¡Rutina completada! Buen trabajo.")
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .foregroundColor(ProgresaColor.primary)
+            Spacer()
+        }
+        .padding(14)
+        .background(ProgresaColor.accent.opacity(0.12))
+        .cornerRadius(14)
+    }
+
     private var rutinaDelDiaSection: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 6) {
@@ -178,6 +198,14 @@ struct HomeView: View {
         }
     }
 
+    /// Alto aproximado para mostrar 2 filas de `EjercicioPreviewRow` — el
+    /// resto de la lista queda accesible con scroll interno, sin empujar
+    /// los botones de acción hacia abajo cuando la rutina tiene muchos
+    /// ejercicios. Es un valor "a ojo" (igual que los 60pt del status bar
+    /// más abajo), no calculado dinámicamente por altura real de fila,
+    /// porque el nombre del ejercicio puede envolver a 1 o 2 líneas.
+    private let alturaListaEjercicios: CGFloat = 172
+
     private func diaCard(dia: DiaConEjercicios) -> some View {
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading, spacing: 2) {
@@ -189,11 +217,14 @@ struct HomeView: View {
                     .foregroundColor(ProgresaColor.textSecondary)
             }
 
-            VStack(spacing: 10) {
-                ForEach(dia.ejercicios.sorted { $0.orden < $1.orden }) { ejercicioDia in
-                    EjercicioPreviewRow(ejercicioDia: ejercicioDia)
+            ScrollView(showsIndicators: true) {
+                VStack(spacing: 10) {
+                    ForEach(dia.ejercicios.sorted { $0.orden < $1.orden }) { ejercicioDia in
+                        EjercicioPreviewRow(ejercicioDia: ejercicioDia)
+                    }
                 }
             }
+            .frame(height: alturaListaEjercicios)
 
             VStack(spacing: 10) {
                 Button {

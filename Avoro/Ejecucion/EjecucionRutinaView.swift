@@ -203,16 +203,28 @@ struct EjecucionRutinaView: View {
                     .font(.footnote)
                     .foregroundColor(.red)
             }
- 
+
             HStack(spacing: 12) {
                 Button {
-                    mostrarSustitucion = true
+                    irAlAnterior()
                 } label: {
-                    Label("Sustituir", systemImage: "arrow.triangle.2.circlepath")
+                    Image(systemName: "chevron.left")
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(ProgresaOutlineButtonStyle())
- 
+                .disabled(indiceActual == 0)
+                .opacity(indiceActual == 0 ? 0.4 : 1)
+
+                if ejercicioActualBinding?.wrappedValue.completado != true {
+                    Button {
+                        mostrarSustitucion = true
+                    } label: {
+                        Label("Sustituir", systemImage: "arrow.triangle.2.circlepath")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(ProgresaOutlineButtonStyle())
+                }
+
                 Button {
                     avanzarSiguienteEjercicio()
                 } label: {
@@ -225,27 +237,47 @@ struct EjecucionRutinaView: View {
         .padding(16)
         .background(ProgresaColor.surface)
     }
- 
+
     private var esUltimoEjercicio: Bool {
         indiceActual >= viewModel.ejercicios.count - 1
     }
- 
+
+    /// Guarda en silencio SOLO si el ejercicio ya está completo y válido
+    /// (sin bloquear), y siempre avanza — el usuario puede navegar aunque
+    /// no haya terminado; lo que ya escribió no se pierde porque vive en
+    /// `viewModel.ejercicios`, no en un @State local de esta vista.
     private func avanzarSiguienteEjercicio() {
-        guard let estado = ejercicioActualBinding?.wrappedValue else { return }
- 
+        guard let estado = ejercicioActualBinding?.wrappedValue else {
+            irAlSiguiente()
+            return
+        }
+
         if estado.completado {
             irAlSiguiente()
             return
         }
- 
+
         Task {
-            await viewModel.guardarSeries(paraEjercicioConId: estado.id)
-            if viewModel.errorMessage == nil {
-                irAlSiguiente()
-            }
+            await viewModel.guardarSiEstaCompleto(paraEjercicioConId: estado.id)
+            irAlSiguiente()
         }
     }
- 
+
+    /// Simétrico a `avanzarSiguienteEjercicio`: mismo guardado silencioso
+    /// best-effort antes de retroceder, sin bloquear si aún no ha terminado.
+    private func irAlAnterior() {
+        guard indiceActual > 0 else { return }
+        guard let estado = ejercicioActualBinding?.wrappedValue, !estado.completado else {
+            indiceActual -= 1
+            return
+        }
+
+        Task {
+            await viewModel.guardarSiEstaCompleto(paraEjercicioConId: estado.id)
+            indiceActual -= 1
+        }
+    }
+
     private func irAlSiguiente() {
         if esUltimoEjercicio {
             dismiss()

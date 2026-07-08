@@ -245,4 +245,54 @@ final class EjecucionRutinaViewModel: ObservableObject {
             errorMessage = "No se pudo guardar el registro. Intenta de nuevo."
         }
     }
+
+    /// Versión silenciosa de `guardarSeries`, pensada para la navegación
+    /// libre entre ejercicios (Anterior/Siguiente) sin bloquear al usuario.
+    /// A diferencia de `guardarSeries`, NO pone `errorMessage` si faltan
+    /// campos o son inválidos — en ese caso simplemente no guarda nada y
+    /// regresa `false`, dejando los valores tal cual los escribió el
+    /// usuario en `ejercicios[index].series` (ese arreglo vive en el
+    /// ViewModel, así que sobrevive a la navegación entre páginas). Solo
+    /// intenta guardar si TODAS las series ya están completas y válidas
+    /// — el mismo criterio "todo o nada" de siempre, pero sin interrumpir
+    /// al usuario si aún no ha terminado.
+    @discardableResult
+    func guardarSiEstaCompleto(paraEjercicioConId ejercicioDiaId: UUID) async -> Bool {
+        guard let index = ejercicios.firstIndex(where: { $0.id == ejercicioDiaId }) else { return false }
+        let estado = ejercicios[index]
+        guard !estado.completado else { return false }
+        guard let usuarioId = client.auth.currentUser?.id else { return false }
+
+        let fechaTexto = EjecucionRutinaViewModel.formatoFecha.string(from: fechaEntrenamiento)
+        var nuevos: [NuevoRegistroEntrenamiento] = []
+
+        for serie in estado.series {
+            guard let reps = Int(serie.repeticiones), reps > 0,
+                  let peso = Double(serie.peso.replacingOccurrences(of: ",", with: ".")), peso >= 0 else {
+                return false
+            }
+            nuevos.append(
+                NuevoRegistroEntrenamiento(
+                    ejercicio_dia_id: estado.ejercicioDia.id,
+                    usuario_id: usuarioId,
+                    fecha: fechaTexto,
+                    numero_serie: serie.numeroSerie,
+                    repeticiones_reales: reps,
+                    peso: peso,
+                    unidad: unidadSeleccionada
+                )
+            )
+        }
+
+        do {
+            try await service.crearRegistros(nuevos)
+            await cargarProgresoDeLaFecha()
+            return true
+        } catch {
+            // Falla silenciosa a propósito: no queremos bloquear la
+            // navegación por un error de red aquí. El usuario puede volver
+            // a este ejercicio después y su texto sigue intacto.
+            return false
+        }
+    }
 }

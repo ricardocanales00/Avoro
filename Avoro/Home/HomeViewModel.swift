@@ -72,6 +72,13 @@ final class HomeViewModel: ObservableObject {
     var totalRutinasGuardadas: Int { rutinas.count }
     var sinRutinaActiva: Bool { rutinas.isEmpty }
 
+    /// true si el día actualmente seleccionado ya tiene todos sus
+    /// ejercicios registrados. Reutiliza `fechasCompletadas` (ya calculado
+    /// por `actualizarCompletados()`), no pide nada nuevo al servidor.
+    var diaSeleccionadoCompletado: Bool {
+        fechasCompletadas.contains(Calendar.current.startOfDay(for: fechaSeleccionada))
+    }
+
     /// Días de la semana visible que SÍ tienen una rutina asignada (con o
     /// sin registros todavía) — para el punto gris del calendario. No pide
     /// nada al servidor: se calcula sobre `rutinas`, ya cargadas.
