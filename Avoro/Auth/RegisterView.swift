@@ -66,6 +66,7 @@ struct RegisterView: View {
         .background(ProgresaColor.background)
         .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
+        .preferredColorScheme(.light)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {

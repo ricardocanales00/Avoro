@@ -3,6 +3,7 @@ import SwiftUI
 struct HomeView: View {
     @Binding var selectedTab: Int
     @StateObject private var viewModel = HomeViewModel()
+    @State private var mostrarModoEntrenador = false
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -55,6 +56,13 @@ struct HomeView: View {
             .task {
                 await viewModel.cargarDatos()
             }
+            .navigationDestination(isPresented: $mostrarModoEntrenador) {
+                ModoEntrenadorInicioView(
+                    diaActual: viewModel.diaSeleccionado,
+                    unidadPreferida: viewModel.unidadPreferida,
+                    fechaSeleccionada: viewModel.fechaSeleccionada
+                )
+            }
 
             // Cubre el status bar: sin esto, el header ("Hola, ...") puede
             // scrollear por debajo del reloj/íconos del sistema porque esta
@@ -78,16 +86,14 @@ struct HomeView: View {
 
     private var appsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Apps y dispositivos")
+            Text("Apps")
                 .font(.system(size: 20, weight: .bold))
                 .foregroundColor(ProgresaColor.primary)
 
             VStack(spacing: 0) {
                 appRow(nombre: "Spotify", colorIcono: Color(red: 0.11, green: 0.84, blue: 0.38), estado: .vinculado)
-                appRow(nombre: "Apple Music", colorIcono: Color(red: 0.98, green: 0.14, blue: 0.23), estado: .conectar)
                 Divider().padding(.leading, 66)
-                appRow(nombre: "Apple Watch", colorIcono: Color(red: 0.98, green: 0.14, blue: 0.23), estado: .conectar)
-                appRow(nombre: "Garmin", colorIcono: Color(red: 0.98, green: 0.14, blue: 0.23), estado: .conectar)
+                appRow(nombre: "Apple Music", colorIcono: Color(red: 0.98, green: 0.14, blue: 0.23), estado: .conectar)
             }
             .background(ProgresaColor.surface)
             .cornerRadius(16)
@@ -228,7 +234,7 @@ struct HomeView: View {
 
             VStack(spacing: 10) {
                 Button {
-                    // TODO: Modo Entrenador — sin funcionalidad todavía.
+                    mostrarModoEntrenador = true
                 } label: {
                     HStack {
                         Image(systemName: "sparkles")

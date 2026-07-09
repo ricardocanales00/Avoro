@@ -19,6 +19,15 @@
 		DC8B7EBB2FFD9EAB00D636AF /* SustituirEjercicioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B7EB92FFD9EAB00D636AF /* SustituirEjercicioViewModel.swift */; };
 		DC8B7EBD2FFD9EC700D636AF /* SustitucionModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B7EBC2FFD9EC700D636AF /* SustitucionModels.swift */; };
 		DC8B7EBF2FFD9ED900D636AF /* SustitucionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B7EBE2FFD9ED900D636AF /* SustitucionService.swift */; };
+		DCDE948B2FFF071F00B9C14A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCDE948A2FFF071F00B9C14A /* Assets.xcassets */; };
+		DCDE94962FFF515A00B9C14A /* RutinaGuardadaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE94902FFF515A00B9C14A /* RutinaGuardadaView.swift */; };
+		DCDE94972FFF515A00B9C14A /* RutinaUnDiaPropuestaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE94912FFF515A00B9C14A /* RutinaUnDiaPropuestaView.swift */; };
+		DCDE94982FFF515A00B9C14A /* TipoRutinaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE94942FFF515A00B9C14A /* TipoRutinaView.swift */; };
+		DCDE94992FFF515A00B9C14A /* SeleccionMusculosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE94922FFF515A00B9C14A /* SeleccionMusculosView.swift */; };
+		DCDE949A2FFF515A00B9C14A /* ModoEntrenadorInicioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE948E2FFF515A00B9C14A /* ModoEntrenadorInicioView.swift */; };
+		DCDE949B2FFF515A00B9C14A /* ModoEntrenadorComponentes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE948D2FFF515A00B9C14A /* ModoEntrenadorComponentes.swift */; };
+		DCDE949C2FFF515A00B9C14A /* ProgramaVariosDiasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE948F2FFF515A00B9C14A /* ProgramaVariosDiasView.swift */; };
+		DCDE949D2FFF515A00B9C14A /* SeleccionMusculosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE94932FFF515A00B9C14A /* SeleccionMusculosViewModel.swift */; };
 		DCFAFAB02FF8E9B400CBCA4F /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = DCFAFAAF2FF8E9B400CBCA4F /* Supabase */; };
 		DCFAFAB82FF8EC1300CBCA4F /* Equipo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFAB62FF8EAC100CBCA4F /* Equipo.swift */; };
 		DCFAFAB92FF8EC5000CBCA4F /* SupabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFAB32FF8EA4600CBCA4F /* SupabaseService.swift */; };
@@ -68,6 +77,15 @@
 		DC8B7EB92FFD9EAB00D636AF /* SustituirEjercicioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SustituirEjercicioViewModel.swift; sourceTree = "<group>"; };
 		DC8B7EBC2FFD9EC700D636AF /* SustitucionModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SustitucionModels.swift; sourceTree = "<group>"; };
 		DC8B7EBE2FFD9ED900D636AF /* SustitucionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SustitucionService.swift; sourceTree = "<group>"; };
+		DCDE948A2FFF071F00B9C14A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DCDE948D2FFF515A00B9C14A /* ModoEntrenadorComponentes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModoEntrenadorComponentes.swift; sourceTree = "<group>"; };
+		DCDE948E2FFF515A00B9C14A /* ModoEntrenadorInicioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModoEntrenadorInicioView.swift; sourceTree = "<group>"; };
+		DCDE948F2FFF515A00B9C14A /* ProgramaVariosDiasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramaVariosDiasView.swift; sourceTree = "<group>"; };
+		DCDE94902FFF515A00B9C14A /* RutinaGuardadaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RutinaGuardadaView.swift; sourceTree = "<group>"; };
+		DCDE94912FFF515A00B9C14A /* RutinaUnDiaPropuestaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RutinaUnDiaPropuestaView.swift; sourceTree = "<group>"; };
+		DCDE94922FFF515A00B9C14A /* SeleccionMusculosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeleccionMusculosView.swift; sourceTree = "<group>"; };
+		DCDE94932FFF515A00B9C14A /* SeleccionMusculosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeleccionMusculosViewModel.swift; sourceTree = "<group>"; };
+		DCDE94942FFF515A00B9C14A /* TipoRutinaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipoRutinaView.swift; sourceTree = "<group>"; };
 		DCFAFAA02FF8E62E00CBCA4F /* Avoro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Avoro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCFAFAB32FF8EA4600CBCA4F /* SupabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseService.swift; sourceTree = "<group>"; };
 		DCFAFAB62FF8EAC100CBCA4F /* Equipo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipo.swift; sourceTree = "<group>"; };
@@ -146,9 +164,25 @@
 			path = Sustituir;
 			sourceTree = "<group>";
 		};
+		DCDE94952FFF515A00B9C14A /* ModoEntrenador */ = {
+			isa = PBXGroup;
+			children = (
+				DCDE948D2FFF515A00B9C14A /* ModoEntrenadorComponentes.swift */,
+				DCDE948E2FFF515A00B9C14A /* ModoEntrenadorInicioView.swift */,
+				DCDE948F2FFF515A00B9C14A /* ProgramaVariosDiasView.swift */,
+				DCDE94902FFF515A00B9C14A /* RutinaGuardadaView.swift */,
+				DCDE94912FFF515A00B9C14A /* RutinaUnDiaPropuestaView.swift */,
+				DCDE94922FFF515A00B9C14A /* SeleccionMusculosView.swift */,
+				DCDE94932FFF515A00B9C14A /* SeleccionMusculosViewModel.swift */,
+				DCDE94942FFF515A00B9C14A /* TipoRutinaView.swift */,
+			);
+			path = ModoEntrenador;
+			sourceTree = "<group>";
+		};
 		DCFAFA972FF8E62E00CBCA4F = {
 			isa = PBXGroup;
 			children = (
+				DCDE948A2FFF071F00B9C14A /* Assets.xcassets */,
 				DC8B7EB62FFD9E5E00D636AF /* Sustituir */,
 				DCFAFAFF2FF9CFD800CBCA4F /* Shared */,
 				DCFAFAF62FF9BA7F00CBCA4F /* Ejecucion */,
@@ -160,6 +194,7 @@
 				DCFAFAA22FF8E62E00CBCA4F /* Avoro */,
 				DCFAFAA12FF8E62E00CBCA4F /* Products */,
 				DC4701982FFDB1EE00BF5B99 /* Perfil */,
+				DCDE94952FFF515A00B9C14A /* ModoEntrenador */,
 			);
 			sourceTree = "<group>";
 		};
@@ -325,6 +360,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCDE948B2FFF071F00B9C14A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,6 +404,14 @@
 				DC4701A32FFE0ADB00BF5B99 /* EditarEjerciciosView.swift in Sources */,
 				DC4701A42FFE0ADB00BF5B99 /* EditarEquipoView.swift in Sources */,
 				DCFAFAFD2FF9CFB900CBCA4F /* ProgresoEjercicioViewModel.swift in Sources */,
+				DCDE94962FFF515A00B9C14A /* RutinaGuardadaView.swift in Sources */,
+				DCDE94972FFF515A00B9C14A /* RutinaUnDiaPropuestaView.swift in Sources */,
+				DCDE94982FFF515A00B9C14A /* TipoRutinaView.swift in Sources */,
+				DCDE94992FFF515A00B9C14A /* SeleccionMusculosView.swift in Sources */,
+				DCDE949A2FFF515A00B9C14A /* ModoEntrenadorInicioView.swift in Sources */,
+				DCDE949B2FFF515A00B9C14A /* ModoEntrenadorComponentes.swift in Sources */,
+				DCDE949C2FFF515A00B9C14A /* ProgramaVariosDiasView.swift in Sources */,
+				DCDE949D2FFF515A00B9C14A /* SeleccionMusculosViewModel.swift in Sources */,
 				DCFAFAFE2FF9CFB900CBCA4F /* ProgresoEjercicioView.swift in Sources */,
 				DCFAFAB92FF8EC5000CBCA4F /* SupabaseService.swift in Sources */,
 				DCFAFADB2FF9B41000CBCA4F /* RutinaListViewModel.swift in Sources */,
@@ -528,12 +572,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ricardocanales.avoro2026;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -560,12 +606,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ricardocanales.avoro2026;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -61,6 +61,7 @@ struct ForgotPasswordView: View {
             }
         }
         .presentationDetents([.medium])
+        .preferredColorScheme(.light)
     }
 }
 

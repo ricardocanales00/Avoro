@@ -56,20 +56,10 @@ struct LoginView: View {
     // MARK: - Logo
 
     private var logoPlaceholder: some View {
-        RoundedRectangle(cornerRadius: 20)
-            .strokeBorder(style: StrokeStyle(lineWidth: 1.5, dash: [5]))
-            .foregroundColor(.white.opacity(0.3))
-            .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(Color.white.opacity(0.05))
-            )
+        Image("LogoAvoro")
+            .resizable()
+            .scaledToFit()
             .frame(width: 96, height: 96)
-            .overlay(
-                Text("LOGO")
-                    .font(.caption2)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.white.opacity(0.5))
-            )
     }
 
     // MARK: - Paso 1: bienvenida (correo / Google)
@@ -137,7 +127,7 @@ struct LoginView: View {
                 TextField(
                     "",
                     text: $viewModel.email,
-                    prompt: Text("lucia.f@mail.com").foregroundColor(.white.opacity(0.35))
+                    prompt: Text("tu-correo@mail.com").foregroundColor(.white.opacity(0.2))
                 )
                 .textFieldStyle(ProgresaDarkTextFieldStyle())
                 .keyboardType(.emailAddress)
