@@ -28,6 +28,11 @@
 		DCDE949B2FFF515A00B9C14A /* ModoEntrenadorComponentes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE948D2FFF515A00B9C14A /* ModoEntrenadorComponentes.swift */; };
 		DCDE949C2FFF515A00B9C14A /* ProgramaVariosDiasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE948F2FFF515A00B9C14A /* ProgramaVariosDiasView.swift */; };
 		DCDE949D2FFF515A00B9C14A /* SeleccionMusculosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE94932FFF515A00B9C14A /* SeleccionMusculosViewModel.swift */; };
+		DCDE94A32FFF698400B9C14A /* OnboardingWizardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE94A12FFF698400B9C14A /* OnboardingWizardView.swift */; };
+		DCDE94A42FFF698400B9C14A /* OnboardingComponentes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE949E2FFF698400B9C14A /* OnboardingComponentes.swift */; };
+		DCDE94A52FFF698400B9C14A /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE94A02FFF698400B9C14A /* OnboardingViewModel.swift */; };
+		DCDE94A62FFF698400B9C14A /* OnboardingEquipoStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE949F2FFF698400B9C14A /* OnboardingEquipoStepView.swift */; };
+		DCDE94A82FFF6A0300B9C14A /* EquipoComponentes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE94A72FFF6A0300B9C14A /* EquipoComponentes.swift */; };
 		DCFAFAB02FF8E9B400CBCA4F /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = DCFAFAAF2FF8E9B400CBCA4F /* Supabase */; };
 		DCFAFAB82FF8EC1300CBCA4F /* Equipo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFAB62FF8EAC100CBCA4F /* Equipo.swift */; };
 		DCFAFAB92FF8EC5000CBCA4F /* SupabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFAFAB32FF8EA4600CBCA4F /* SupabaseService.swift */; };
@@ -86,6 +91,11 @@
 		DCDE94922FFF515A00B9C14A /* SeleccionMusculosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeleccionMusculosView.swift; sourceTree = "<group>"; };
 		DCDE94932FFF515A00B9C14A /* SeleccionMusculosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeleccionMusculosViewModel.swift; sourceTree = "<group>"; };
 		DCDE94942FFF515A00B9C14A /* TipoRutinaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipoRutinaView.swift; sourceTree = "<group>"; };
+		DCDE949E2FFF698400B9C14A /* OnboardingComponentes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingComponentes.swift; sourceTree = "<group>"; };
+		DCDE949F2FFF698400B9C14A /* OnboardingEquipoStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingEquipoStepView.swift; sourceTree = "<group>"; };
+		DCDE94A02FFF698400B9C14A /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		DCDE94A12FFF698400B9C14A /* OnboardingWizardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWizardView.swift; sourceTree = "<group>"; };
+		DCDE94A72FFF6A0300B9C14A /* EquipoComponentes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipoComponentes.swift; sourceTree = "<group>"; };
 		DCFAFAA02FF8E62E00CBCA4F /* Avoro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Avoro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCFAFAB32FF8EA4600CBCA4F /* SupabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseService.swift; sourceTree = "<group>"; };
 		DCFAFAB62FF8EAC100CBCA4F /* Equipo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipo.swift; sourceTree = "<group>"; };
@@ -179,6 +189,17 @@
 			path = ModoEntrenador;
 			sourceTree = "<group>";
 		};
+		DCDE94A22FFF698400B9C14A /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				DCDE949E2FFF698400B9C14A /* OnboardingComponentes.swift */,
+				DCDE949F2FFF698400B9C14A /* OnboardingEquipoStepView.swift */,
+				DCDE94A02FFF698400B9C14A /* OnboardingViewModel.swift */,
+				DCDE94A12FFF698400B9C14A /* OnboardingWizardView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		DCFAFA972FF8E62E00CBCA4F = {
 			isa = PBXGroup;
 			children = (
@@ -195,6 +216,7 @@
 				DCFAFAA12FF8E62E00CBCA4F /* Products */,
 				DC4701982FFDB1EE00BF5B99 /* Perfil */,
 				DCDE94952FFF515A00B9C14A /* ModoEntrenador */,
+				DCDE94A22FFF698400B9C14A /* Onboarding */,
 			);
 			sourceTree = "<group>";
 		};
@@ -287,6 +309,7 @@
 		DCFAFAFF2FF9CFD800CBCA4F /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				DCDE94A72FFF6A0300B9C14A /* EquipoComponentes.swift */,
 				DCFAFB002FF9CFE300CBCA4F /* ProgresaComponentes.swift */,
 			);
 			path = Shared;
@@ -389,6 +412,7 @@
 				DCFAFAD62FF8F72600CBCA4F /* RutinaService.swift in Sources */,
 				DCFAFB012FF9CFE300CBCA4F /* ProgresaComponentes.swift in Sources */,
 				DCFAFAC62FF8F08D00CBCA4F /* RegisterView.swift in Sources */,
+				DCDE94A82FFF6A0300B9C14A /* EquipoComponentes.swift in Sources */,
 				DCFAFAD92FF9B3F700CBCA4F /* RutinaListView.swift in Sources */,
 				DCFAFAC82FF8F08D00CBCA4F /* ForgotPasswordView.swift in Sources */,
 				DC8B7EBD2FFD9EC700D636AF /* SustitucionModels.swift in Sources */,
@@ -402,6 +426,10 @@
 				DC4701A12FFE0ADB00BF5B99 /* EditarEjerciciosViewModel.swift in Sources */,
 				DC4701A22FFE0ADB00BF5B99 /* EditarEquipoViewModel.swift in Sources */,
 				DC4701A32FFE0ADB00BF5B99 /* EditarEjerciciosView.swift in Sources */,
+				DCDE94A32FFF698400B9C14A /* OnboardingWizardView.swift in Sources */,
+				DCDE94A42FFF698400B9C14A /* OnboardingComponentes.swift in Sources */,
+				DCDE94A52FFF698400B9C14A /* OnboardingViewModel.swift in Sources */,
+				DCDE94A62FFF698400B9C14A /* OnboardingEquipoStepView.swift in Sources */,
 				DC4701A42FFE0ADB00BF5B99 /* EditarEquipoView.swift in Sources */,
 				DCFAFAFD2FF9CFB900CBCA4F /* ProgresoEjercicioViewModel.swift in Sources */,
 				DCDE94962FFF515A00B9C14A /* RutinaGuardadaView.swift in Sources */,
