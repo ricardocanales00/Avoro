@@ -2,10 +2,18 @@
 //  ModoEntrenadorInicioView.swift
 //  Avoro
 //
-//  Paso 1/4 del flujo. Se abre desde el botón "Modo Entrenador" de la card
+//  Paso 1 del flujo. Se abre desde el botón "Modo Entrenador" de la card
 //  del día en HomeView. "Seguir mi rutina establecida" reutiliza el flujo
 //  real ya existente (EjecucionRutinaView); "Sugiéreme una rutina" entra
-//  al flujo nuevo, que a partir de aquí es solo navegación (sin backend).
+//  al flujo nuevo (TipoRutinaView → ... → PlanIAWizardView).
+//
+//  ACTUALIZADO ESTA SESIÓN: la barra de progreso del header ya no es el
+//  stepper segmentado de "4 pasos" — ahora usa `ModoEntrenadorHeader(
+//  progreso:)`, una barra continua de dos tramos, porque el número total
+//  de pasos depende de qué elige el usuario en esta y la siguiente
+//  pantalla (ver ModoEntrenadorComponentes.swift). Esta pantalla es la
+//  1ª de 2 antes de bifurcar, por eso usa un progreso menor (0.4) que
+//  `TipoRutinaView` (0.8).
 //
 
 import SwiftUI
@@ -27,7 +35,7 @@ struct ModoEntrenadorInicioView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            ModoEntrenadorHeader(paso: 1, onBack: { dismiss() })
+            ModoEntrenadorHeader(progreso: 0.4, onBack: { dismiss() })
 
             VStack(alignment: .leading, spacing: 16) {
                 VStack(alignment: .leading, spacing: 6) {

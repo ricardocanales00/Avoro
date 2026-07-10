@@ -13,14 +13,31 @@ struct AuthContainerView: View {
             case .signedOut:
                 LoginView()
             case .signedIn:
-                // TODO: aquí es donde, la primera vez que un usuario entra
-                // tras registrarse, deberías verificar si ya seleccionó su
-                // equipo disponible (tabla usuario_equipo) y mandarlo a esa
-                // pantalla en vez de MainTabView si no lo ha hecho.
-                MainTabView()
+                contenidoSignedIn
             }
         }
         .environmentObject(authViewModel)
+    }
+
+    /// Una vez hay sesión, todavía falta saber si el usuario ya completó
+    /// el onboarding (`perfiles.onboarding_completado`) — mientras se
+    /// revisa (`nil`), se muestra un loader en vez de parpadear entre
+    /// wizard y app normal.
+    @ViewBuilder
+    private var contenidoSignedIn: some View {
+        switch authViewModel.necesitaOnboarding {
+        case .none:
+            ProgressView()
+        case .some(true):
+            OnboardingWizardView {
+                // El wizard ya marcó onboarding_completado = true en la
+                // base de datos; actualizamos el flag local de inmediato
+                // para no tener que volver a consultar Supabase.
+                authViewModel.necesitaOnboarding = false
+            }
+        case .some(false):
+            MainTabView()
+        }
     }
 }
 

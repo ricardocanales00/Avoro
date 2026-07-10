@@ -2,22 +2,60 @@
 //  ModoEntrenadorComponentes.swift
 //  Avoro
 //
-//  Piezas de UI compartidas por las 4 pantallas del flujo de Modo
-//  Entrenador (Épica 4, botón placeholder de Home). Todo este flujo es
-//  únicamente de navegación — no crea nada en Supabase todavía, salvo la
-//  lectura real de `grupo_muscular` en SeleccionMusculosViewModel.
+//  Piezas de UI compartidas por las pantallas del flujo de Modo
+//  Entrenador (Épica 4). Todo este flujo es únicamente de navegación por
+//  ahora — no crea nada en Supabase todavía, salvo la lectura real de
+//  `grupo_muscular` en SeleccionMusculosViewModel y, desde esta sesión,
+//  la actualización de `nivel_experiencia` / `lugar_entrenamiento` del
+//  perfil cuando el usuario los ajusta dentro del wizard de sugerencia
+//  de rutina (ver PlanIAModels.swift).
+//
+//  ACTUALIZADO ESTA SESIÓN: `ModoEntrenadorHeader` ahora soporta dos
+//  estilos de barra de progreso:
+//   - `.segmentada`: el original, N capsulas discretas (se sigue usando
+//     en `ProgramaVariosDiasView`, paso 4 de 4).
+//   - `.proporcional`: una sola barra continua (naranja/gris) sin marcar
+//     cuántos pasos hay en total. Se usa en `ModoEntrenadorInicioView` y
+//     `TipoRutinaView`, porque el número total de pasos del flujo
+//     depende de qué elige el usuario (seguir rutina vs. sugerencia; un
+//     solo día vs. programa de varios días) y un stepper de "4 pasos"
+//     fijo ya no describe la realidad del flujo.
+//
+//  También se agregó `PlanIAChip` / `PlanIAChipsGrid`, para la selección
+//  múltiple del wizard de sugerencia de rutina (Sección 7.17). Reutilizan
+//  `FlowLayout` (definido en `EquipoComponentes.swift`) para el wrap y
+//  copian el estilo visual de `EquipoPill`, así que este archivo asume
+//  que `EquipoComponentes.swift` está en el mismo target.
 //
 
 import SwiftUI
 
-// MARK: - Header con progreso (4 pasos)
+// MARK: - Header con progreso
 
-/// Chevron de regreso + título "Modo Entrenador" + barra de progreso
-/// segmentada. Se repite igual en las 4 pantallas del flujo.
+/// Chevron de regreso + título "Modo Entrenador" + barra de progreso.
+/// Se repite en las pantallas iniciales del flujo (Inicio, TipoRutina) y,
+/// en su modo segmentado, en `ProgramaVariosDiasView`.
 struct ModoEntrenadorHeader: View {
-    let paso: Int
-    var totalPasos: Int = 4
+    enum Barra {
+        case segmentada(actual: Int, total: Int)
+        case proporcional(progreso: CGFloat)
+    }
+
+    private let barra: Barra
     var onBack: () -> Void
+
+    /// Compatibilidad con las pantallas que ya usaban el stepper de N
+    /// pasos fijos (ej. `ProgramaVariosDiasView(paso: 4)`).
+    init(paso: Int, totalPasos: Int = 4, onBack: @escaping () -> Void) {
+        self.barra = .segmentada(actual: paso, total: totalPasos)
+        self.onBack = onBack
+    }
+
+    /// Nuevo: barra continua proporcional, sin número de pasos fijo.
+    init(progreso: CGFloat, onBack: @escaping () -> Void) {
+        self.barra = .proporcional(progreso: progreso)
+        self.onBack = onBack
+    }
 
     var body: some View {
         VStack(spacing: 12) {
@@ -39,18 +77,45 @@ struct ModoEntrenadorHeader: View {
                 Spacer()
             }
 
-            HStack(spacing: 6) {
-                ForEach(0..<totalPasos, id: \.self) { indice in
-                    Capsule()
-                        .fill(indice < paso ? ProgresaColor.accent : ProgresaColor.border)
-                        .frame(height: 4)
+            switch barra {
+            case let .segmentada(actual, total):
+                HStack(spacing: 6) {
+                    ForEach(0..<total, id: \.self) { indice in
+                        Capsule()
+                            .fill(indice < actual ? ProgresaColor.accent : ProgresaColor.border)
+                            .frame(height: 4)
+                    }
                 }
+            case let .proporcional(progreso):
+                ModoEntrenadorProgresoSimple(progreso: progreso)
             }
         }
         .padding(.horizontal, 20)
         .padding(.top, 8)
         .padding(.bottom, 14)
         .background(ProgresaColor.background)
+    }
+}
+
+/// Barra de progreso de dos tramos (avance / restante), sin segmentos
+/// discretos — pensada para flujos donde el número total de pasos no se
+/// conoce de antemano (depende de la rama que elija el usuario).
+struct ModoEntrenadorProgresoSimple: View {
+    /// 0...1. Cuánto se considera avanzado dentro de estas pantallas.
+    let progreso: CGFloat
+
+    var body: some View {
+        GeometryReader { geo in
+            HStack(spacing: 6) {
+                Capsule()
+                    .fill(ProgresaColor.accent)
+                    .frame(width: max(28, geo.size.width * min(max(progreso, 0), 1)), height: 4)
+                Capsule()
+                    .fill(ProgresaColor.border)
+                    .frame(height: 4)
+            }
+        }
+        .frame(height: 4)
     }
 }
 
@@ -103,6 +168,76 @@ struct OpcionCard: View {
             .cornerRadius(16)
         }
         .buttonStyle(.plain)
+    }
+}
+
+// MARK: - Chip de selección múltiple (grupos musculares, lesiones, etc.)
+
+/// Usado en los pasos del wizard de sugerencia de rutina que piden
+/// selección múltiple sobre una lista corta (grupos musculares a
+/// priorizar/evitar, lesiones).
+///
+/// ACTUALIZADO ESTA SESIÓN: antes usaba un `LazyVGrid` adaptativo propio
+/// y un estilo de rectángulo redondeado inventado. Ahora reutiliza
+/// `FlowLayout` (definido en `EquipoComponentes.swift`, ya usado por
+/// `EquipoSeleccionGrid`) para el wrap, y copia el estilo visual de
+/// `EquipoPill` (cápsula + checkmark) para que las selecciones múltiples
+/// se vean igual en toda la app. No se reutiliza `EquipoPill` tal cual
+/// porque está tipado a `Equipo`, no a un `Item: Hashable` genérico —
+/// si en algún momento se quiere un solo componente, valdría la pena
+/// genericizar `EquipoPill` y hacer que ambos usen la misma base.
+struct PlanIAChip: View {
+    let titulo: String
+    let seleccionado: Bool
+    var deshabilitado: Bool = false
+    let accion: () -> Void
+
+    var body: some View {
+        Button(action: accion) {
+            HStack(spacing: 6) {
+                if seleccionado {
+                    Image(systemName: "checkmark")
+                }
+                Text(titulo)
+            }
+            .font(.subheadline)
+            .fontWeight(.medium)
+            .foregroundColor(seleccionado ? .white : ProgresaColor.primary)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            .background(seleccionado ? ProgresaColor.primary : Color.clear)
+            .overlay(
+                Capsule().stroke(seleccionado ? Color.clear : ProgresaColor.border, lineWidth: 1)
+            )
+            .clipShape(Capsule())
+            .opacity(deshabilitado && !seleccionado ? 0.4 : 1)
+        }
+        .disabled(deshabilitado && !seleccionado)
+    }
+}
+
+/// Wrap de `PlanIAChip` usando `FlowLayout` — mismo mecanismo de
+/// wrap que `EquipoSeleccionGrid`, sin el agrupado por categoría (aquí
+/// las listas ya son planas: grupos musculares, lesiones, etc.).
+struct PlanIAChipsGrid<Item: Hashable>: View {
+    let items: [Item]
+    let titulo: (Item) -> String
+    let seleccionado: (Item) -> Bool
+    var deshabilitado: (Item) -> Bool = { _ in false }
+    let toggle: (Item) -> Void
+
+    var body: some View {
+        FlowLayout(spacing: 10) {
+            ForEach(items, id: \.self) { item in
+                PlanIAChip(
+                    titulo: titulo(item),
+                    seleccionado: seleccionado(item),
+                    deshabilitado: deshabilitado(item)
+                ) {
+                    toggle(item)
+                }
+            }
+        }
     }
 }
 

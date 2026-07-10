@@ -25,6 +25,19 @@ private struct UnidadPreferidaUpdate: Encodable {
     let unidad_preferida: String
 }
 
+private struct NivelExperienciaUpdate: Encodable {
+    let nivel_experiencia: String
+}
+
+private struct LugarEntrenamientoUpdate: Encodable {
+    let lugar_entrenamiento: String
+}
+
+private struct DatosPerfilPlanIA: Decodable {
+    let nivel_experiencia: String?
+    let lugar_entrenamiento: String?
+}
+
 // MARK: - Servicio
 
 struct EquipoService {
@@ -148,6 +161,40 @@ struct EquipoService {
         try await client
             .from("perfiles")
             .update(UnidadPreferidaUpdate(unidad_preferida: unidad))
+            .eq("id", value: usuarioId)
+            .execute()
+    }
+
+    /// Usado por `PlanIAViewModel` para prellenar experiencia y lugar de
+    /// entrenamiento en el wizard de "Programa de varios días" (Sección
+    /// 7.17) — mismos dos campos que ya captura el onboarding, para no
+    /// volver a preguntarlos desde cero.
+    func fetchDatosPerfilParaPlanIA(usuarioId: UUID) async throws -> (experiencia: String?, lugar: String?) {
+        let fila: DatosPerfilPlanIA = try await client
+            .from("perfiles")
+            .select("nivel_experiencia, lugar_entrenamiento")
+            .eq("id", value: usuarioId)
+            .single()
+            .execute()
+            .value
+        return (fila.nivel_experiencia, fila.lugar_entrenamiento)
+    }
+
+    /// Si el usuario ajusta su experiencia dentro del wizard de Plan IA,
+    /// además de usarse para el futuro prompt a Groq se refleja en su
+    /// perfil real — mismo dato que edita desde Perfil (Épica 8).
+    func actualizarNivelExperiencia(usuarioId: UUID, nivelExperiencia: String) async throws {
+        try await client
+            .from("perfiles")
+            .update(NivelExperienciaUpdate(nivel_experiencia: nivelExperiencia))
+            .eq("id", value: usuarioId)
+            .execute()
+    }
+
+    func actualizarLugarEntrenamiento(usuarioId: UUID, lugar: String) async throws {
+        try await client
+            .from("perfiles")
+            .update(LugarEntrenamientoUpdate(lugar_entrenamiento: lugar))
             .eq("id", value: usuarioId)
             .execute()
     }

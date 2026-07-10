@@ -2,7 +2,17 @@
 //  TipoRutinaView.swift
 //  Avoro
 //
-//  Paso 2/4 del flujo de Modo Entrenador.
+//  Paso 2 del flujo de Modo Entrenador.
+//
+//  ACTUALIZADO ESTA SESIÓN: el header ya no usa el stepper segmentado
+//  "2 de 4" — ahora usa `ModoEntrenadorHeader(progreso:)`, la barra
+//  continua de dos tramos, porque el total de pasos depende de la rama
+//  que elija el usuario (ver ModoEntrenadorComponentes.swift). También
+//  cambia el destino de "Programa de varios días": antes iba directo a
+//  `ProgramaVariosDiasView`, ahora pasa primero por `EncendiendoMotorView`
+//  → el wizard de preguntas (`PlanIAWizardView`) → recién ahí llega a
+//  `ProgramaVariosDiasView`. "Un solo día" no se tocó — sigue yendo a
+//  `SeleccionMusculosView`, que ya es un flujo real.
 //
 
 import SwiftUI
@@ -15,7 +25,7 @@ struct TipoRutinaView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            ModoEntrenadorHeader(paso: 2, onBack: { dismiss() })
+            ModoEntrenadorHeader(progreso: 0.8, onBack: { dismiss() })
 
             VStack(alignment: .leading, spacing: 16) {
                 VStack(alignment: .leading, spacing: 6) {
@@ -59,7 +69,7 @@ struct TipoRutinaView: View {
             SeleccionMusculosView()
         }
         .navigationDestination(isPresented: $irAProgramaVariosDias) {
-            ProgramaVariosDiasView()
+            EncendiendoMotorView()
         }
     }
 }

@@ -19,21 +19,25 @@ struct RegisterView: View {
                 .padding(.top, 40)
 
                 VStack(spacing: 14) {
-                    TextField("Nombre", text: $viewModel.nombre)
+                    TextField("", text: $viewModel.nombre, prompt: Text("Nombre").foregroundColor(ProgresaColor.textSecondary))
                         .textFieldStyle(ProgresaTextFieldStyle())
+                        .foregroundColor(ProgresaColor.primary)
                         .textInputAutocapitalization(.words)
 
-                    TextField("Correo electrónico", text: $viewModel.email)
+                    TextField("", text: $viewModel.email, prompt: Text("Correo electrónico").foregroundColor(ProgresaColor.textSecondary))
                         .textFieldStyle(ProgresaTextFieldStyle())
+                        .foregroundColor(ProgresaColor.primary)
                         .keyboardType(.emailAddress)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
 
-                    SecureField("Contraseña (mín. 6 caracteres)", text: $viewModel.password)
+                    SecureField("", text: $viewModel.password, prompt: Text("Contraseña (mín. 6 caracteres)").foregroundColor(ProgresaColor.textSecondary))
                         .textFieldStyle(ProgresaTextFieldStyle())
+                        .foregroundColor(ProgresaColor.primary)
 
-                    SecureField("Confirmar contraseña", text: $viewModel.confirmPassword)
+                    SecureField("", text: $viewModel.confirmPassword, prompt: Text("Confirmar contraseña").foregroundColor(ProgresaColor.textSecondary))
                         .textFieldStyle(ProgresaTextFieldStyle())
+                        .foregroundColor(ProgresaColor.primary)
                 }
 
                 if let error = viewModel.errorMessage {
@@ -66,6 +70,8 @@ struct RegisterView: View {
         .background(ProgresaColor.background)
         .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .statusBarHidden(false)
         .preferredColorScheme(.light)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
