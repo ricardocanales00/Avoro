@@ -17,6 +17,10 @@ struct RutinaConDias: Codable, Identifiable {
     let fechaInicio: String
     let fechaFin: String?
     let activa: Bool
+    /// Cada cuántos días naturales se repite el ciclo (ver Rutina.swift
+    /// para el detalle de diseño). Usado por HomeViewModel.diaParaFecha
+    /// para saber si una fecha cae en descanso o en un día asignado.
+    let cicloDias: Int
     let dias: [DiaConEjercicios]
 
     enum CodingKeys: String, CodingKey {
@@ -24,6 +28,7 @@ struct RutinaConDias: Codable, Identifiable {
         case fechaInicio = "fecha_inicio"
         case fechaFin = "fecha_fin"
         case activa
+        case cicloDias = "ciclo_dias"
         case dias = "dia_rutina"
     }
 
@@ -107,6 +112,7 @@ struct RutinaService {
                 fecha_inicio,
                 fecha_fin,
                 activa,
+                ciclo_dias,
                 dia_rutina (
                     id,
                     nombre_dia,
@@ -151,6 +157,7 @@ struct RutinaService {
                 fecha_inicio,
                 fecha_fin,
                 activa,
+                ciclo_dias,
                 dia_rutina (
                     id,
                     nombre_dia,

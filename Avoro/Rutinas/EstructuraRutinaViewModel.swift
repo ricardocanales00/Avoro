@@ -10,9 +10,15 @@ final class EstructuraRutinaViewModel: ObservableObject {
 
     private let service = RutinaService()
     let rutinaId: UUID
+    /// Duración del ciclo de la rutina (7, 14, etc.) — no se puede agregar
+    /// más días de entrenamiento que posiciones tiene el ciclo. La base de
+    /// datos también lo refuerza con un trigger, pero validar aquí primero
+    /// da un mensaje inmediato en vez de esperar el error de Postgres.
+    let cicloDias: Int
 
-    init(rutinaId: UUID) {
-        self.rutinaId = rutinaId
+    init(rutina: Rutina) {
+        self.rutinaId = rutina.id
+        self.cicloDias = rutina.cicloDias
     }
 
     func cargarDias() async {
@@ -31,6 +37,12 @@ final class EstructuraRutinaViewModel: ObservableObject {
         let nombreLimpio = nombre.trimmingCharacters(in: .whitespaces)
         guard !nombreLimpio.isEmpty else { return }
 
+        guard dias.count < cicloDias else {
+            errorMessage = "Ya tienes \(dias.count) días de entrenamiento, el máximo para un ciclo de \(cicloDias) días. Aumenta la duración del ciclo desde \"Editar rutina\" si quieres agregar más."
+            return
+        }
+
+        errorMessage = nil
         let siguienteOrden = (dias.map(\.orden).max() ?? 0) + 1
         do {
             let nuevo = try await service.crearDia(

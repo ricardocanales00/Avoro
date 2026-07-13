@@ -72,13 +72,6 @@ final class HomeViewModel: ObservableObject {
     var totalRutinasGuardadas: Int { rutinas.count }
     var sinRutinaActiva: Bool { rutinas.isEmpty }
 
-    /// true si el día actualmente seleccionado ya tiene todos sus
-    /// ejercicios registrados. Reutiliza `fechasCompletadas` (ya calculado
-    /// por `actualizarCompletados()`), no pide nada nuevo al servidor.
-    var diaSeleccionadoCompletado: Bool {
-        fechasCompletadas.contains(Calendar.current.startOfDay(for: fechaSeleccionada))
-    }
-
     /// Días de la semana visible que SÍ tienen una rutina asignada (con o
     /// sin registros todavía) — para el punto gris del calendario. No pide
     /// nada al servidor: se calcula sobre `rutinas`, ya cargadas.
@@ -97,6 +90,14 @@ final class HomeViewModel: ObservableObject {
     /// fecha elegida (hueco entre rutinas, antes de la primera, después
     /// de la última, o una rutina sin días).
     var sinEjerciciosEsteDia: Bool { !rutinas.isEmpty && diaSeleccionado == nil }
+
+    /// true si la fecha actualmente seleccionada ya quedó completa —
+    /// reutiliza `fechasCompletadas`, que ya se recalcula en
+    /// `actualizarCompletados()` cada vez que cambia la semana o el día
+    /// seleccionado, así que no hace ningún cálculo nuevo aquí.
+    var diaSeleccionadoCompletado: Bool {
+        fechasCompletadas.contains(Calendar.current.startOfDay(for: fechaSeleccionada))
+    }
 
     var fechaSeleccionadaFormateada: String {
         let formatter = DateFormatter()
@@ -216,20 +217,23 @@ final class HomeViewModel: ObservableObject {
         return candidatas.max { $0.fechaInicioComoDate < $1.fechaInicioComoDate }
     }
 
-    /// NOTA: el schema no guarda a qué día de la semana corresponde cada
-    /// `dia_rutina` — solo un `orden` (1, 2, 3...). Esta función cicla
-    /// los días según cuántos días naturales han pasado desde la
-    /// `fecha_inicio` de ESA rutina específica hasta la fecha pedida.
+    /// NOTA: cada `dia_rutina` usa su `orden` como posición DENTRO del
+    /// ciclo de la rutina (orden 1 -> posición 0, orden 2 -> posición 1,
+    /// ...). El ciclo completo dura `rutina.cicloDias` (7, 14, etc.), que
+    /// puede ser MAYOR a la cantidad de días de entrenamiento que el
+    /// usuario agregó — cualquier posición del ciclo sin un `dia_rutina`
+    /// con ese orden es, automáticamente, un día de descanso (`nil`),
+    /// sin necesitar ninguna fila ni marca especial para representarlo.
     private func diaParaFecha(_ fecha: Date, rutina: RutinaConDias) -> DiaConEjercicios? {
         let calendar = Calendar.current
         let inicio = calendar.startOfDay(for: rutina.fechaInicioComoDate)
         let objetivo = calendar.startOfDay(for: fecha)
-        guard !rutina.dias.isEmpty else { return nil }
+        guard !rutina.dias.isEmpty, rutina.cicloDias > 0 else { return nil }
 
-        let diasOrdenados = rutina.dias.sorted { $0.orden < $1.orden }
         let diasTranscurridos = calendar.dateComponents([.day], from: inicio, to: objetivo).day ?? 0
-        let indice = ((diasTranscurridos % diasOrdenados.count) + diasOrdenados.count) % diasOrdenados.count
-        return diasOrdenados[indice]
+        let posicionEnCiclo = ((diasTranscurridos % rutina.cicloDias) + rutina.cicloDias) % rutina.cicloDias
+
+        return rutina.dias.first { $0.orden - 1 == posicionEnCiclo }
     }
 
     private func fetchPerfil(_ usuarioId: UUID) async throws -> Perfil {

@@ -164,6 +164,30 @@ struct HomeView: View {
         .padding(.top, 12)
     }
 
+    // MARK: - Botón "Modo Entrenador" (compartido entre la card del día y
+    // el estado de "Día de descanso")
+
+    private var botonModoEntrenador: some View {
+        Button {
+            mostrarModoEntrenador = true
+        } label: {
+            HStack {
+                Image(systemName: "sparkles")
+                Text("Modo Entrenador")
+            }
+            .font(.system(size: 16, weight: .semibold))
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 14)
+            .background(ProgresaColor.primary)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(ProgresaColor.accent, lineWidth: 2)
+            )
+            .cornerRadius(12)
+        }
+    }
+
     // MARK: - Rutina del día seleccionado
 
     private var banderaCompletada: some View {
@@ -233,24 +257,7 @@ struct HomeView: View {
             .frame(height: alturaListaEjercicios)
 
             VStack(spacing: 10) {
-                Button {
-                    mostrarModoEntrenador = true
-                } label: {
-                    HStack {
-                        Image(systemName: "sparkles")
-                        Text("Modo Entrenador")
-                    }
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 14)
-                    .background(ProgresaColor.primary)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(ProgresaColor.accent, lineWidth: 2)
-                    )
-                    .cornerRadius(12)
-                }
+                botonModoEntrenador
 
                 NavigationLink {
                     EjecucionRutinaView(dia: dia, unidadPreferida: viewModel.unidadPreferida, fecha: viewModel.fechaSeleccionada)
@@ -284,24 +291,29 @@ struct HomeView: View {
     }
 
     private var sinEjerciciosEsteDiaState: some View {
-        VStack(spacing: 12) {
-            ZStack {
-                Circle()
-                    .fill(ProgresaColor.background)
-                    .frame(width: 56, height: 56)
-                Image(systemName: "moon.zzz")
-                    .font(.system(size: 22))
+        VStack(spacing: 20) {
+            VStack(spacing: 12) {
+                ZStack {
+                    Circle()
+                        .fill(ProgresaColor.background)
+                        .frame(width: 56, height: 56)
+                    Image(systemName: "moon.zzz")
+                        .font(.system(size: 22))
+                        .foregroundColor(ProgresaColor.textSecondary)
+                }
+
+                Text("Día de descanso")
+                    .font(.system(size: 17, weight: .bold))
+                    .foregroundColor(ProgresaColor.primary)
+
+                Text("También puedes dejarnos guiar tu sesión y optimizar tus pesos hoy")
+                    .font(.footnote)
                     .foregroundColor(ProgresaColor.textSecondary)
+                    .multilineTextAlignment(.center)
+
+                botonModoEntrenador
+                    .padding(.top, 6)
             }
-
-            Text("Día de descanso")
-                .font(.system(size: 17, weight: .bold))
-                .foregroundColor(ProgresaColor.primary)
-
-            Text("No hay rutina prevista para este día. Aprovecha para recuperar.")
-                .font(.footnote)
-                .foregroundColor(ProgresaColor.textSecondary)
-                .multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 32)

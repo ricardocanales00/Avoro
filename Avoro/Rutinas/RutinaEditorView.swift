@@ -9,6 +9,8 @@ struct RutinaEditorView: View {
     @State private var rutinaParaEstructura: Rutina?
     @State private var mostrarEstructura = false
 
+    private let opcionesCicloRapidas = [7, 14, 21, 28]
+
     init(rutinaExistente: Rutina?, onSaved: @escaping () -> Void) {
         self.rutinaExistente = rutinaExistente
         _viewModel = StateObject(wrappedValue: RutinaEditorViewModel(rutinaExistente: rutinaExistente))
@@ -30,6 +32,33 @@ struct RutinaEditorView: View {
                 if viewModel.tieneFechaFin {
                     DatePicker("Fin", selection: $viewModel.fechaFin, in: viewModel.fechaInicio..., displayedComponents: .date)
                 }
+            }
+
+            Section {
+                Stepper(
+                    "Se repite cada \(viewModel.cicloDias) día\(viewModel.cicloDias == 1 ? "" : "s")",
+                    value: $viewModel.cicloDias,
+                    in: 1...60
+                )
+
+                HStack(spacing: 8) {
+                    ForEach(opcionesCicloRapidas, id: \.self) { opcion in
+                        Button {
+                            viewModel.cicloDias = opcion
+                        } label: {
+                            Text("\(opcion)")
+                                .font(.footnote)
+                                .fontWeight(.semibold)
+                                .frame(maxWidth: .infinity)
+                        }
+                        .buttonStyle(.bordered)
+                        .tint(viewModel.cicloDias == opcion ? ProgresaColor.primary : ProgresaColor.textSecondary)
+                    }
+                }
+            } header: {
+                Text("Duración del ciclo")
+            } footer: {
+                Text("El primer día que agregues siempre cae en \(fechaInicioFormateada). Si agregas menos días de entrenamiento que la duración del ciclo, los días restantes se muestran como descanso en Home. Ej.: 4 días de entrenamiento con un ciclo de 7 = 3 días de descanso por semana.")
             }
 
             Section {
@@ -76,6 +105,13 @@ struct RutinaEditorView: View {
                 EstructuraRutinaView(rutina: rutina)
             }
         }
+    }
+
+    private var fechaInicioFormateada: String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "es_MX")
+        formatter.dateFormat = "EEEE"
+        return formatter.string(from: viewModel.fechaInicio).capitalized(with: Locale(identifier: "es_MX"))
     }
 
     private func guardar() async {

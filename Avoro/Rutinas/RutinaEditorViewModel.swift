@@ -10,6 +10,9 @@ final class RutinaEditorViewModel: ObservableObject {
     @Published var tieneFechaFin = false
     @Published var fechaFin = Date()
     @Published var activa = true
+    /// Cada cuántos días naturales se repite el ciclo (7 = semanal por
+    /// default). Ver Models/Rutina.swift para el detalle de diseño.
+    @Published var cicloDias = 7
 
     @Published var isLoading = false
     @Published var errorMessage: String?
@@ -28,6 +31,7 @@ final class RutinaEditorViewModel: ObservableObject {
             descripcion = rutina.descripcion ?? ""
             fechaInicio = rutina.fechaInicioComoDate
             activa = rutina.activa
+            cicloDias = rutina.cicloDias
             if let finDate = rutina.fechaFinComoDate {
                 tieneFechaFin = true
                 fechaFin = finDate
@@ -41,6 +45,9 @@ final class RutinaEditorViewModel: ObservableObject {
         }
         if tieneFechaFin && fechaFin < fechaInicio {
             return "La fecha final no puede ser antes de la fecha de inicio."
+        }
+        if cicloDias < 1 {
+            return "La duración del ciclo debe ser de al menos 1 día."
         }
         return nil
     }
@@ -72,7 +79,8 @@ final class RutinaEditorViewModel: ObservableObject {
                     descripcion: descripcion.isEmpty ? nil : descripcion,
                     fechaInicio: fechaInicioTexto,
                     fechaFin: fechaFinTexto,
-                    activa: activa
+                    activa: activa,
+                    cicloDias: cicloDias
                 )
                 try await service.actualizarRutina(id: existente.id, cambios: cambios)
                 return Rutina(
@@ -81,7 +89,8 @@ final class RutinaEditorViewModel: ObservableObject {
                     descripcion: descripcion.isEmpty ? nil : descripcion,
                     fechaInicio: fechaInicioTexto,
                     fechaFin: fechaFinTexto,
-                    activa: activa
+                    activa: activa,
+                    cicloDias: cicloDias
                 )
             } else {
                 let nueva = RutinaInsert(
@@ -90,7 +99,8 @@ final class RutinaEditorViewModel: ObservableObject {
                     descripcion: descripcion.isEmpty ? nil : descripcion,
                     fechaInicio: fechaInicioTexto,
                     fechaFin: fechaFinTexto,
-                    activa: activa
+                    activa: activa,
+                    cicloDias: cicloDias
                 )
                 return try await service.crearRutina(nueva)
             }

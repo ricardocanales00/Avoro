@@ -10,7 +10,7 @@ struct EstructuraRutinaView: View {
 
     init(rutina: Rutina) {
         self.rutina = rutina
-        _viewModel = StateObject(wrappedValue: EstructuraRutinaViewModel(rutinaId: rutina.id))
+        _viewModel = StateObject(wrappedValue: EstructuraRutinaViewModel(rutina: rutina))
     }
 
     var body: some View {
@@ -33,6 +33,7 @@ struct EstructuraRutinaView: View {
                 } label: {
                     Image(systemName: "plus")
                 }
+                .disabled(viewModel.dias.count >= viewModel.cicloDias)
             }
         }
         .task {
@@ -71,6 +72,13 @@ struct EstructuraRutinaView: View {
         }
     }
 
+    private var resumenCiclo: some View {
+        let descanso = viewModel.cicloDias - viewModel.dias.count
+        return Text("Ciclo de \(viewModel.cicloDias) días · \(viewModel.dias.count) de entrenamiento · \(descanso) de descanso")
+            .font(.footnote)
+            .foregroundColor(ProgresaColor.textSecondary)
+    }
+
     private var lista: some View {
         List {
             Section {
@@ -91,6 +99,9 @@ struct EstructuraRutinaView: View {
                     }
                 }
                 .onMove(perform: viewModel.moverDias)
+            } header: {
+                resumenCiclo
+                    .textCase(nil)
             } footer: {
                 Text("Mantén presionado y arrastra para reordenar los días.")
             }
@@ -112,6 +123,7 @@ struct EstructuraRutinaView: View {
                 .foregroundColor(ProgresaColor.textSecondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
+            resumenCiclo
             Button("Agregar día") {
                 nombreNuevoDia = ""
                 mostrarAgregarDia = true

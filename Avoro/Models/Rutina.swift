@@ -7,11 +7,18 @@ struct Rutina: Codable, Identifiable, Hashable {
     var fechaInicio: String
     var fechaFin: String?
     var activa: Bool
+    /// Cada cuántos días naturales se repite el ciclo de la rutina (ej. 7
+    /// = semanal, 14 = quincenal). Los días de entrenamiento (`dia_rutina`)
+    /// usan su `orden` como posición dentro de este ciclo (orden 1 ->
+    /// posición 0, orden 2 -> posición 1, ...); cualquier posición del
+    /// ciclo sin un día asignado es automáticamente un día de descanso.
+    var cicloDias: Int
 
     enum CodingKeys: String, CodingKey {
         case id, nombre, descripcion, activa
         case fechaInicio = "fecha_inicio"
         case fechaFin = "fecha_fin"
+        case cicloDias = "ciclo_dias"
     }
 
     static let formatoFecha: DateFormatter = {
@@ -39,12 +46,14 @@ struct RutinaInsert: Encodable {
     let fechaInicio: String
     let fechaFin: String?
     let activa: Bool
+    let cicloDias: Int
 
     enum CodingKeys: String, CodingKey {
         case usuarioId = "usuario_id"
         case nombre, descripcion, activa
         case fechaInicio = "fecha_inicio"
         case fechaFin = "fecha_fin"
+        case cicloDias = "ciclo_dias"
     }
 }
 
@@ -55,10 +64,12 @@ struct RutinaUpdate: Encodable {
     let fechaInicio: String
     let fechaFin: String?
     let activa: Bool
+    let cicloDias: Int
 
     enum CodingKeys: String, CodingKey {
         case nombre, descripcion, activa
         case fechaInicio = "fecha_inicio"
         case fechaFin = "fecha_fin"
+        case cicloDias = "ciclo_dias"
     }
 }

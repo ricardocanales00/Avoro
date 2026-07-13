@@ -205,15 +205,15 @@ struct EjecucionRutinaView: View {
             }
 
             HStack(spacing: 12) {
-                Button {
-                    irAlAnterior()
-                } label: {
-                    Image(systemName: "chevron.left")
-                        .frame(maxWidth: .infinity)
+                if indiceActual > 0 {
+                    Button {
+                        irAlAnterior()
+                    } label: {
+                        Text("Anterior")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(ProgresaPrimaryButtonStyle())
                 }
-                .buttonStyle(ProgresaOutlineButtonStyle())
-                .disabled(indiceActual == 0)
-                .opacity(indiceActual == 0 ? 0.4 : 1)
 
                 if ejercicioActualBinding?.wrappedValue.completado != true {
                     Button {
@@ -228,7 +228,7 @@ struct EjecucionRutinaView: View {
                 Button {
                     avanzarSiguienteEjercicio()
                 } label: {
-                    Text(esUltimoEjercicio ? "Terminar" : "Siguiente ejercicio")
+                    Text(esUltimoEjercicio ? "Terminar" : "Siguiente")
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(ProgresaPrimaryButtonStyle())
