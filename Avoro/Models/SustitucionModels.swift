@@ -20,7 +20,20 @@ struct MensajeChatSustitucion: Identifiable {
 struct SugerenciaEjercicio: Decodable, Identifiable {
     var id: UUID { ejercicio.id }
     let ejercicio: EjercicioResumen
+    /// Versión corta — la que ya se usaba antes, pensada para el chat.
     let razon: String
+    /// Párrafo más largo, generado por el mismo LLM, para el bottom sheet
+    /// de detalles: qué es el ejercicio, qué trabaja, por qué es buena
+    /// alternativa.
+    let descripcion: String
+    let seriesRecomendadas: Int?
+    let repeticionesRecomendadas: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case ejercicio, razon, descripcion
+        case seriesRecomendadas = "series_recomendadas"
+        case repeticionesRecomendadas = "repeticiones_recomendadas"
+    }
 }
 
 /// Respuesta de la Edge Function `sustituir-ejercicio`.

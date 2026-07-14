@@ -9,6 +9,11 @@ struct SustituirEjercicioView: View {
     /// actualizar su propio estado local (ver EjecucionRutinaView) y cerrar.
     let onSustituido: (EjercicioResumen) -> Void
 
+    /// Controla el bottom sheet de detalles de una sugerencia — usa
+    /// `.sheet(item:)` en vez de un booleano para no tener que cargar
+    /// "cuál" sugerencia por separado.
+    @State private var sugerenciaParaDetalle: SugerenciaEjercicio?
+
     init(
         ejercicioDiaId: UUID,
         ejercicioOriginal: EjercicioResumen,
@@ -69,6 +74,12 @@ struct SustituirEjercicioView: View {
             onSustituido(nuevo)
             dismiss()
         }
+        .sheet(item: $sugerenciaParaDetalle) { sugerencia in
+            DetalleSugerenciaSheet(sugerencia: sugerencia) {
+                sugerenciaParaDetalle = nil
+                Task { await viewModel.confirmarSustitucion(sugerencia) }
+            }
+        }
     }
 
     // MARK: - Header
@@ -111,9 +122,15 @@ struct SustituirEjercicioView: View {
                     }
 
                     ForEach(mensaje.sugerencias) { sugerencia in
-                        TarjetaSugerencia(sugerencia: sugerencia) {
-                            Task { await viewModel.confirmarSustitucion(sugerencia) }
-                        }
+                        TarjetaSugerencia(
+                            sugerencia: sugerencia,
+                            onCambiar: {
+                                Task { await viewModel.confirmarSustitucion(sugerencia) }
+                            },
+                            onDetalles: {
+                                sugerenciaParaDetalle = sugerencia
+                            }
+                        )
                     }
                 }
                 Spacer(minLength: 24)
@@ -190,7 +207,8 @@ struct SustituirEjercicioView: View {
 
 private struct TarjetaSugerencia: View {
     let sugerencia: SugerenciaEjercicio
-    let onUsar: () -> Void
+    let onCambiar: () -> Void
+    let onDetalles: () -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -206,9 +224,19 @@ private struct TarjetaSugerencia: View {
                         .font(.caption2)
                         .fontWeight(.semibold)
                         .foregroundColor(.orange)
-                    Text(sugerencia.ejercicio.nombre)
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(ProgresaColor.primary)
+
+                    // El nombre también abre el detalle — mismo destino
+                    // que el botón "Detalles" de abajo.
+                    Button(action: onDetalles) {
+                        Text(sugerencia.ejercicio.nombre)
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(ProgresaColor.primary)
+                            .lineLimit(1)
+                            .truncationMode(.tail)
+                            .multilineTextAlignment(.leading)
+                    }
+                    .buttonStyle(.plain)
+
                     Text("\(sugerencia.ejercicio.grupoMuscular.capitalized) · \(sugerencia.ejercicio.equipo?.nombre ?? "—")")
                         .font(.caption)
                         .foregroundColor(ProgresaColor.textSecondary)
@@ -219,16 +247,34 @@ private struct TarjetaSugerencia: View {
 
             Divider()
 
-            Button(action: onUsar) {
-                HStack {
-                    Image(systemName: "checkmark")
-                    Text("Usar este ejercicio")
-                    Spacer()
+            HStack(spacing: 0) {
+                Button(action: onCambiar) {
+                    HStack {
+                        Image(systemName: "checkmark")
+                        Text("Cambiar")
+                        Spacer()
+                    }
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(ProgresaColor.primary)
+                    .padding(12)
+                    .frame(maxWidth: .infinity)
                 }
-                .font(.subheadline)
-                .fontWeight(.semibold)
-                .foregroundColor(ProgresaColor.primary)
-                .padding(12)
+
+                Divider().frame(height: 20)
+
+                Button(action: onDetalles) {
+                    HStack {
+                        Spacer()
+                        Text("Detalles")
+                        Spacer()
+                    }
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(ProgresaColor.primary)
+                    .padding(12)
+                    .frame(maxWidth: .infinity)
+                }
             }
         }
         .background(ProgresaColor.surface)
@@ -248,6 +294,87 @@ private struct TarjetaSugerencia: View {
             ZStack {
                 Color(ProgresaColor.border)
                 Image(systemName: "figure.strengthtraining.traditional")
+                    .foregroundColor(ProgresaColor.textSecondary)
+            }
+        }
+    }
+}
+
+// MARK: - Bottom sheet de detalles de una sugerencia
+
+private struct DetalleSugerenciaSheet: View {
+    let sugerencia: SugerenciaEjercicio
+    let onCambiar: () -> Void
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                imagen
+                    .frame(height: 220)
+                    .frame(maxWidth: .infinity)
+                    .background(ProgresaColor.border)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(sugerencia.ejercicio.nombre)
+                        .font(.system(size: 22, weight: .bold))
+                        .foregroundColor(ProgresaColor.primary)
+                    Text("\(sugerencia.ejercicio.grupoMuscular.capitalized) · \(sugerencia.ejercicio.equipo?.nombre ?? "—")")
+                        .font(.subheadline)
+                        .foregroundColor(ProgresaColor.textSecondary)
+                }
+
+                Text(sugerencia.descripcion)
+                    .font(.subheadline)
+                    .foregroundColor(ProgresaColor.primary)
+                    .lineSpacing(4)
+
+                if let recomendacion = textoRecomendacion {
+                    Text(recomendacion)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(ProgresaColor.primary)
+                }
+
+                Button {
+                    dismiss()
+                    onCambiar()
+                } label: {
+                    HStack {
+                        Image(systemName: "checkmark")
+                        Text("Cambiar a este ejercicio")
+                    }
+                    .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(ProgresaPrimaryButtonStyle())
+                .padding(.top, 8)
+            }
+            .padding(20)
+        }
+        .presentationDetents([.medium, .large])
+        .presentationDragIndicator(.visible)
+    }
+
+    private var textoRecomendacion: String? {
+        guard let series = sugerencia.seriesRecomendadas,
+              let reps = sugerencia.repeticionesRecomendadas else { return nil }
+        return "Te recomiendo hacer \(series) series de \(reps) repeticiones."
+    }
+
+    @ViewBuilder
+    private var imagen: some View {
+        if let urlString = sugerencia.ejercicio.imagenUrl, let url = URL(string: urlString) {
+            AsyncImage(url: url) { image in
+                image.resizable().aspectRatio(contentMode: .fill)
+            } placeholder: {
+                Color(ProgresaColor.border)
+            }
+        } else {
+            ZStack {
+                Color(ProgresaColor.border)
+                Image(systemName: "figure.strengthtraining.traditional")
+                    .font(.system(size: 40))
                     .foregroundColor(ProgresaColor.textSecondary)
             }
         }
